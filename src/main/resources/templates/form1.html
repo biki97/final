@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="csrf-token" content="csrf-token">
+  <title>Dealer Form</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+  <!-- Bootstrap JS -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <style>
+    /* Hide all forms by default */
+    .form-container {
+      display: none;
+    }
+    body {
+      background-color: #f8f9fa;
+      font-family: Arial, sans-serif;
+    }
+    /* Different style for active form link */
+    .active-link {
+      background-color: #555; /* Change background color */
+    }
+    .active-link {
+      color: #ff6347; /* Change color of active link */
+    }
+    .table th {
+      color: #004578;
+      text-transform: uppercase; /* Convert text to uppercase */
+    }
+    .navbar a {
+      float: left;
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 14px 20px;
+      text-decoration: none;
+    }
+    .navbar a:hover {
+      background-color: #ddd;
+      color: black;
+    }
+    /* Hide all forms by default */
+    .form-container {
+      display: none;
+    }
+    #form1 {
+      display: block;
+    }
+    p span {
+      display: inline; /* Make spans display as inline elements */
+      margin-right: 5px; /* Add some spacing between spans */
+    }
+
+    /* Table styles */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    /* Form inputs */
+    input[type="text"] {
+      width: 40%;
+      padding: 8px;
+      margin-top: 5px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    /* Form buttons */
+    .btn-next {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .navbar {
+      background-color: #333; /* Change background color */
+      color: #fff; /* Change text color */
+      padding: 10px;
+    }
+
+    .navbar a {
+      color: #fff; /* Change link color */
+      text-decoration: none;
+      margin-right: 10px;
+    }
+
+    .navbar a.active-link {
+      font-weight: bold; /* Change font weight for active link */
+    }
+
+    .date-section {
+      color: #fff; /* Change text color */
+      font-style: italic; /* Apply italic style */
+      margin-top: 5px;
+      text-align: right;
+    }
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .container {
+      margin-top: 50px;
+    }
+
+    .form-container {
+      margin-bottom: 50px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 20px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-container .card {
+      border: none;
+      border-radius: 0;
+    }
+
+    .form-container .card-body {
+      padding: 0;
+    }
+
+    .form-container .table {
+      margin-bottom: 0;
+    }
+
+    .form-container .card-footer {
+      background-color: #f8f9fa;
+      border-top: none;
+      text-align: right;
+    }
+
+    .btn-next {
+      background-color: #007bff;
+      border-color: #007bff;
+    }
+    .custom-preview-btn {
+      font-size: 14px; /* Adjust font size as needed */
+      padding: 5px 10px; /* Adjust padding as needed */
+      margin-right: 10px; /* Adjust margin as needed */
+      float: left;
+      margin-bottom: 20px; /* Add margin to create space between button and form */
+    }
+    /* Add your custom CSS styles here */
+    .form-container {
+      background-color: #f8f9fa; /* Light gray background */
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-container input[type="text"] {
+      border: 1px solid #ced4da; /* Light gray border */
+      border-radius: 5px;
+      padding: 8px;
+      transition: border-color 0.2s ease-in-out;
+    }
+
+    .form-container input[type="text"]:focus {
+      outline: none;
+      border-color: #80bdff; /* Blue border on focus */
+    }
+
+    .form-container label {
+      font-weight: bold;
+      color: #343a40; /* Dark text color */
+    }
+
+    .form-container button {
+      background-color: #007bff; /* Blue button color */
+      color: #fff; /* White text color */
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: background-color 0.2s ease-in-out;
+    }
+
+    .form-container button:hover {
+      background-color: #0056b3; /* Darker blue color on hover */
+    }
+  </style>
+<!--  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">-->
+</head>
+<body>
+<form method="post">
+  <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+  <div class="navbar">
+    <a href="#" onclick="toggleForm('form1')" data-form-id="form1" class="nav-link active-link">Form 1</a>
+    <a href="#" onclick="toggleForm('form2')" data-form-id="form2" class="nav-link">Form 2</a>
+    <a href="#" onclick="toggleForm('form3')" data-form-id="form3" class="nav-link">Form 3</a>
+    <a href="#" onclick="toggleForm('form4')" data-form-id="form4" class="nav-link">Form 4</a>
+
+    <div class="date-section">
+      <p><span id="fromMonth"></span>-<span id="fromYear"></span> to <span id="toMonth"></span>-<span id="toYear"></span></p>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10 offset-md-1">
+        <div id="form1" class="form-container">
+          <form action="/purchase/submit" method="post">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <div class="card">
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead>
+                    <tr>
+                      <th>Purchases in the Quarter<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Input)</th>
+                      <th>Value Excluding VAT<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A)</th>
+                      <th>VAT Claimed<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(B)</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <td>
+                        <label>4.Exempt or non-creditable purchases:</label>
+                      </td>
+                      <td><input type="text" name="p_exempt_rate_a" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                      <td><input type="text" name="p_exempt_rate_b" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                    </tr>
+                    </tbody>
+                    <tbody>
+                    <tr>
+                      <td>
+                        <label>5.<input type="text" name="input" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>...% Rate Purchases:</label>
+                      </td>
+                      <td><input type="text" name="p_4_rate_a" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                      <td><input type="text" name="p_4_rate_b" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                    </tr>
+                    </tbody>
+                    <tbody>
+                    <tr>
+                      <td>
+                        <label>6.<input type="text" name="input" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>...% Rate Purchases:</label>
+                      </td>
+                      <td><input type="text" name="p_12_5_rate_a" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                      <td><input type="text" name="p_12_5_rate_b" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                    </tr>
+                    </tbody>
+                    <tbody>
+                    <tr>
+                      <td><label>7. 1% Rate purchases:</label></td>
+                      <td><input type="text" name="p_1_rate_a" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                      <td><input type="text" name="p_1_rate_b" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                    </tr>
+                    </tbody>
+                    <tbody>
+                    <tr>
+                      <td>
+                        <label>8.<input type="text" name="input" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>...% Rate Purchases(Schedule V):</label>
+                      </td>
+                      <td><input type="text" name="rate_p_8_a" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                      <td><input type="text" name="rate_p_8_b" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                    </tr>
+                    </tbody>
+                    <tbody>
+                    <tr>
+                      <td>
+                        <label>9.<input type="text" name="input" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>...% Rate Purchases(Schedule V):</label>
+                      </td>
+                      <td><input type="text" name="rate_p_9_a" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                      <td><input type="text" name="rate_p_9_b" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                    </tr>
+                    </tbody>
+                    <tbody>
+                    <tr>
+                      <td><label>10.Total Amount of Input Tax:</label></td>
+                      <td></td>
+                      <td><input type="text" name="tot_amt_imp_tax" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="card-footer text-right">
+                <button type="button" class="btn btn-next" id="saveNextForm1" onclick="saveAndNext('form1', 'form2')">Save & Next</button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div id="form2" class="form-container">
+          <form action="/sales/submit" method="post">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <div class="card">
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead>
+                    <tr>
+                      <th>SALES IN THE QUARTER<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(OUTPUT)</th>
+                      <th>Value Excluding VAT<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A)</th>
+                      <th>VAT DUE<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(B)</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <td>
+                        <label>11.Exempt sales:</label>
+                      </td>
+                      <td><input type="text" name="s_exempt_rate_a" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                      <td><input type="text" name="s_exempt_rate_b" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                    </tr>
+                    </tbody>
+                    <tbody>
+                    <tr>
+                      <td>
+                        <label>12.Zero Rate Sales International Exports:</label>
+                      </td>
+                      <td><input type="text" name="s_0_rate_a" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                      <td><input type="text" name="s_0_rate_b" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                    </tr>
+                    </tbody>
+                    <tbody>
+                    <tr>
+                      <td>
+                        <label>13.Zero Rate Sales-Others(CST Sales)</label>
+                      </td>
+                      <td><input type="text" name="s_0_rate_cst_a" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                      <td><input type="text" name="s_0_rate_cst_b" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                    </tr>
+                    </tbody>
+                    <tbody>
+                    <tr>
+                      <td>
+                        <label>14.Tax Due On Purchase Of Goods (if any):<input type="text" name="rate_s_8_a" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required> %</label>
+                      </td>
+                      <td><input type="text" name="s_tax_due_a" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                      <td><input type="text" name="s_tax_due_b" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                    </tr>
+                    </tbody>
+                    <tbody>
+                    <tr>
+                      <td>
+                        <label>15.<input type="text" name="rate_s_9_b" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>&nbsp;% Rate Sales:</label>
+                      </td>
+                      <td><input type="text" name="s_4_rate_a" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                      <td><input type="text" name="s_4_rate_b" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                    </tr>
+                    </tbody>
+                    <tbody>
+                    <tr>
+                      <td>
+                        <label>16.<input type="text" name="p_4_rate_pr" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>&nbsp;% Rate Sales:</label>
+                      </td>
+                      <td><input type="text" name="s_12_5_rate_a" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                      <td><input type="text" name="s_12_5_rate_b" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                    </tr>
+                    </tbody>
+                    <tbody>
+                    <tr>
+                      <td>
+                        <label>17.<input type="text" name="p_12_5_rate_pr" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>&nbsp;% Rate Sales:</label>
+                      </td>
+                      <td><input type="text" name="s_1_rate_a" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                      <td><input type="text" name="s_1_rate_b" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                    </tr>
+                    </tbody>
+                    <tbody>
+                    <tr>
+                      <td>
+                        <label>18.(a)&nbsp;<input type="text" name="p_1_rate_pr" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>&nbsp;% Rate Sales:</label>
+                      </td>
+                      <td><input type="text" name="s_1schedule_v_a" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                      <td><input type="text" name="s_1schedule_v_b" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(b)&nbsp;<input type="text" name="sales_due_rate" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>&nbsp;% Rate Sales:</label>
+                      </td>
+                      <td><input type="text" name="s_2schedule_v_a" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                      <td><input type="text" name="s_2schedule_v_b" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                    </tr>
+                    </tbody>
+                    <tbody>
+                    <tr>
+                      <td><label>19.Total Amount of Output Tax:</label></td>
+                      <td></td>
+                      <td><input type="text" name="tot_amt_out_tax" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="card-footer text-right">
+                <!--                                <button type="button" class="btn btn-secondary mr-2" onclick="goBack()">Back</button>-->
+                <!-- Next button -->
+                <button type="button" class="btn btn-next" id="saveNextForm2" onclick="saveAndNext('form2', 'form3')">Save & Next</button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div id="form3" class="form-container">
+          <form action="/total-output-tax-online/submit" method="post">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <div class="card">
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table">
+                    <h2 class="text-left">TAX CALCULATION</h2>
+                    <tbody>
+                    <tr>
+                      <td><label>20.Output Tax:</label></td>
+                      <td></td>
+                      <td><input type="text" name="" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                    </tr>
+                    </tbody>
+                    <tbody>
+                    <tr>
+                      <td><label>21.Add/Less: Adjustment to output Tax if any:-</label></td>
+                      <td></td>
+                      <td></td>
+                    <tr>
+                      <td><label><p>a)Sale Cancelled </p></label></td>
+                      <td></td>
+                      <td><input type="text" name="sales_cancelled" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                    </tr>
+                    <tr>
+                      <td><label><p>b)Return of Sold Goods:</p></label></td>
+                      <td></td>
+                      <td><input type="text" name="returns_of_sold_goods" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                    </tr>
+                    <tr>
+                      <td><label><p>c)Other Adjustment-(i)To be Added:</p></label></td>
+                      <td></td>
+                      <td><input type="text" name="oth_adjustment_add" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                    </tr>
+                    <tr>
+                      <td><label><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(ii)To be Substracted:</p></label></td>
+                      <td></td>
+                      <td><input type="text" name="oth_adjustment_sub" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                    </tr>
+                    <tr>
+                      <td><label>Total Adjustment:-</label></td>
+                      <td></td>
+                      <td><input type="text" name="tot_adjustment" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                    </tr>
+                    </tr>
+                    </tbody>
+                    <tbody>
+                    <tr>
+                      <td><label>22.Total Output Tax:</label></td>
+                      <td></td>
+                      <td><input type="text" name="total_output_tax" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="card-footer text-right">
+                <!--                                <button type="button" class="btn btn-secondary mr-2" onclick="goBack()">Back</button>-->
+                <!-- Next button -->
+                <button type="button" class="btn btn-next" id="saveNextForm3" onclick="saveAndNext('form3', 'form4')">Save & Next</button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div id="form4" class="form-container">
+          <form action="/purchase-details/submit" method="post">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <!-- Hidden inputs to store data from previous forms -->
+            <input type="hidden" name="data_from_form1" th:value="${data_from_form1}" />
+            <input type="hidden" name="data_from_form2" th:value="${data_from_form2}" />
+            <input type="hidden" name="data_from_form3" th:value="${data_from_form3}" />
+            <div class="card">
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table">
+                    <tbody>
+                    <tr>
+                      <td><label>23.Input Tax credit on Purchases:</label></td>
+                      <td></td>
+                      <td><input type="text" name="stock_on_transition" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                    </tr>
+                    </tbody>
+                    <tbody>
+                    <tr>
+                      <td><label>24.Add/Less: Adjustment to input Tax if any:-</label></td>
+                      <td></td>
+                      <td></td>
+                    <tr>
+                      <td><label><p>javalangNumberFormatException For input string "0.00" &nbsp;&nbsp;(+)Input Tax Credit Carried Forward from previous tax period</p></label></td>
+                      <td></td>
+                      <td><input type="text" name="itc_carried_forward" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                    </tr>
+                    <!--            might delete later-->
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td><input type="text" name="itc_capital_goods" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                    </tr>
+                    <!--            to this-->
+                    <tr>
+                      <td><label><p>(+)Input Tax Credit on capital goods:</p></label></td>
+                      <td></td>
+                      <td><input type="text" name="itc_debit_note" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                    </tr>
+                    <tr>
+                      <td><label><p>(+)Increase on input Tax Credit due to debit note:</p></label></td>
+                      <td></td>
+                      <td><input type="text" name="oth_adjustment_add" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                    </tr>
+                    <tr>
+                      <td><label><p>(+)Other Adjustments if any (specify)</p></label></td>
+                      <td></td>
+                      <td><input type="text" name="total_itc" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                    </tr>
+                    <tr>
+                      <td><label>Total Tax Credit:</label></td>
+                      <td></td>
+                      <td><input type="text" name="itc_credit_note" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                    </tr>
+                    <tr>
+                      <td><label><p>(-)Decreases in input tax credit due to credit note:</p></label></td>
+                      <td></td>
+                      <td><input type="text" name="tax_credit_reversed" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                    </tr>
+                    <tr>
+                      <td><label><p>(-)Tax credit reversed/disallowed for the use of goods for purpose other than for which credit is allowed</p></label></td>
+                      <td></td>
+                      <td><input type="text" name="oth_adjustment_sub" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                    </tr>
+                    <tr>
+                      <td><label><p>(-)other adjustments(if any):</p></label></td>
+                      <td></td>
+                      <td><input type="text" name="tot_itc_deduct" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                    </tr>
+                    </tbody>
+                    <tbody>
+                    <tr>
+                      <td><label>25.Total Net Input Tax Credit:</label></td>
+                      <td></td>
+                      <td><input type="text" name="tot_net_itc" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                    </tr>
+                    </tbody>
+                    <tbody>
+                    <tr>
+                      <td><label>26.Tax Payable:</label></td>
+                      <td><input type="text" name="tax_payable" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                      <td></td>
+                    </tr>
+                    </tbody>
+                    <tbody>
+                    <tr>
+                      <td><label>27.Interest, Penalty or other Dues:</label></td>
+                      <td><input type="text" name="interest_penalty_dues" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                      <td></td>
+                    </tr>
+                    </tbody>
+                    <tbody>
+                    <tr>
+                      <td><label>28.Total Dues:</label></td>
+                      <td><input type="text" name="total_dues" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                      <td></td>
+                    </tr>
+                    </tbody>
+                    <tbody>
+                    <tr>
+                      <td><label>29.Less Tax Deducted At Source:</label></td>
+                      <td><input type="text" name="tax_deducted_at_source" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                      <td></td>
+                    </tr>
+                    </tbody>
+                    <tbody>
+                    <tr>
+                      <td><label>30.Balance/Excess Paid:</label></td>
+                      <td><input type="text" name="balance_excess" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                      <td></td>
+                    </tr>
+                    </tbody>
+                    <tbody>
+                    <tr>
+                      <td><label>31.Tax Paid:</label></td>
+                      <td><input type="text" name="tax_paid" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                      <td></td>
+                    </tr>
+                    </tbody>
+                    <tbody>
+                    <tr>
+                      <td><label>32.Balance Due:</label></td>
+                      <td><input type="text" name="balance_due" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                      <td></td>
+                    </tr>
+                    </tbody>
+                    <tbody>
+                    <tr>
+                      <td><label>33.Adjusted Against central Sales Tax liability:</label></td>
+                      <td><input type="text" name="cst_adjust_liability" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                      <td></td>
+                    </tr>
+                    </tbody>
+                    <tbody>
+                    <tr>
+                      <td><label>34.Refund Claimed:</label></td>
+                      <td><input type="text" name="refund" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                      <td></td>
+                    </tr>
+                    </tbody>
+                    <tbody>
+                    <tr>
+                      <td><label>Balance Carried Forward to Next Period:</label></td>
+                      <td><input type="text" name="balance_carried_forward" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                      <td></td>
+                    </tr>
+                    </tbody>
+                    <tbody>
+                    <tr>
+                      <td><label>Total No of Returns Submitted By Dealer:<input type="text" name="advance_total" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></label></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+<!--              <button onclick="showPreview()">Preview</button>-->
+              <!-- Button to trigger form preview modal -->
+              <div class="custom-preview-btn">
+                <!-- Preview Button -->
+                <button type="button" class="btn btn-primary" onclick="showPreview()">Preview</button>
+              </div>
+              <div class="card-footer text-right">
+                <button type="submit" class="btn btn-next" id="submitButton">Submit</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<!-- Preview Modal -->
+<div class="modal fade" id="previewModal" tabindex="-1" role="dialog" aria-labelledby="previewModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white"> <!-- Add background color and text color -->
+        <h5 class="modal-title" id="previewModalLabel">Form Preview</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Preview content will be inserted here -->
+        <div id="previewContent">
+          <!-- Preview content goes here -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+  // Function to gather form data from all steps
+  function gatherFormData() {
+    var formData = {};
+    // Step 1: Collect data from Form 1
+    formData['form1'] = collectFormData('form1');
+    // Step 2: Collect data from Form 2
+    formData['form2'] = collectFormData('form2');
+    // Step 3: Collect data from Form 3
+    formData['form3'] = collectFormData('form3');
+    // Step 4: Collect data from Form 4
+    formData['form4'] = collectFormData('form4');
+    return formData;
+  }
+
+  // Function to collect form data from a specific form
+  function collectFormData(formId) {
+    var form = document.getElementById(formId);
+    var inputs = form.querySelectorAll('input[type="text"]');
+    var formData = {};
+    inputs.forEach(function(input) {
+      formData[input.name] = input.value;
+    });
+    return formData;
+  }
+
+  // Function to generate preview HTML
+  function generatePreviewHTML(formData) {
+    var html = '';
+
+    // Iterate over each form in formData
+    for (var form in formData) {
+      html += '<h4>' + form.toUpperCase() + '</h4>'; // Display form name
+      html += '<ul>';
+      // Iterate over each field in the form
+      for (var field in formData[form]) {
+        // If the field has a value, display it in the preview
+        if (formData[form][field].trim() !== '') {
+          // Use placeholder text or context to generate label
+          var label = generateLabel(field);
+          html += '<li><strong>' + label + ':</strong> ' + formData[form][field] + '</li>';
+        }
+      }
+      html += '</ul>';
+    }
+    return html;
+  }
+
+  // Function to generate label based on field name
+  function generateLabel(fieldName) {
+    switch(fieldName) {
+      case 'p_exempt_rate_a':
+        return 'Exempt or non-creditable purchases (A)';
+      case 'p_exempt_rate_b':
+        return 'Exempt or non-creditable purchases (B)';
+      case 'p_4_rate_a':
+        return '4% Rate Purchases (A)';
+      case 'p_4_rate_b':
+        return '4% Rate Purchases (B)';
+      case 'p_12_5_rate_a':
+        return '12.5% Rate Purchases (A)';
+      case 'p_12_5_rate_b':
+        return '12.5% Rate Purchases (B)';
+      case 'p_1_rate_a':
+        return '1% Rate Purchases (A)';
+      case 'p_1_rate_b':
+        return '1% Rate Purchases (B)';
+      case 'rate_p_8_a':
+        return '8% Rate Purchases (A)';
+      case 'rate_p_8_b':
+        return '8% Rate Purchases (B)';
+      case 'rate_p_9_a':
+        return '9% Rate Purchases (A)';
+      case 'rate_p_9_b':
+        return '9% Rate Purchases (B)';
+      case 's_exempt_rate_a':
+        return 'Exempt sales (A)';
+      case 's_exempt_rate_b':
+        return 'Exempt sales (B)';
+      case 's_0_rate_a':
+        return 'Zero Rate Sales International Exports (A)';
+      case 's_0_rate_b':
+        return 'Zero Rate Sales International Exports (B)';
+      case 's_0_rate_cst_a':
+        return 'Zero Rate Sales-Others (CST Sales) (A)';
+      case 's_0_rate_cst_b':
+        return 'Zero Rate Sales-Others (CST Sales) (B)';
+      case 's_tax_due_a':
+        return 'Tax Due On Purchase Of Goods (A)';
+      case 's_tax_due_b':
+        return 'Tax Due On Purchase Of Goods (B)';
+      case 's_4_rate_a':
+        return '4% Rate Sales (A)';
+      case 's_4_rate_b':
+        return '4% Rate Sales (B)';
+      case 's_12_5_rate_a':
+        return '12.5% Rate Sales (A)';
+      case 's_12_5_rate_b':
+        return '12.5% Rate Sales (B)';
+      case 's_1_rate_a':
+        return '1% Rate Sales (A)';
+      case 's_1_rate_b':
+        return '1% Rate Sales (B)';
+      case 's_1schedule_v_a':
+        return '1% Rate Sales (Schedule V) (A)';
+      case 's_1schedule_v_b':
+        return '1% Rate Sales (Schedule V) (B)';
+      case 's_2schedule_v_a':
+        return 'Sales Due Rate (Schedule V) (A)';
+      case 's_2schedule_v_b':
+        return 'Sales Due Rate (Schedule V) (B)';
+      case 'tot_amt_out_tax':
+        return 'Total Amount of Output Tax';
+      case '':
+        return 'Output Tax';
+      case 'sales_cancelled':
+        return 'Add/Less: Adjustment to output Tax - Sale Cancelled';
+      case 'returns_of_sold_goods':
+        return 'Add/Less: Adjustment to output Tax - Return of Sold Goods';
+      case 'oth_adjustment_add':
+        return 'Add/Less: Adjustment to output Tax - Other Adjustment (To be Added)';
+      case 'oth_adjustment_sub':
+        return 'Add/Less: Adjustment to output Tax - Other Adjustment (To be Subtracted)';
+      case 'tot_adjustment':
+        return 'Total Adjustment';
+      case 'total_output_tax':
+        return 'Total Output Tax';
+      case 'stock_on_transition':
+        return 'Input Tax credit on Purchases';
+      case 'itc_carried_forward':
+        return 'Add/Less: Adjustment to input Tax - Input Tax Credit Carried Forward from previous tax period';
+      case 'itc_capital_goods':
+        return 'Add/Less: Adjustment to input Tax - Input Tax Credit on capital goods';
+      case 'itc_debit_note':
+        return 'Add/Less: Adjustment to input Tax - Increase on input Tax Credit due to debit note';
+      case 'oth_adjustment_add':
+        return 'Add/Less: Adjustment to input Tax - Other Adjustments if any (specify)';
+      case 'total_itc':
+        return 'Add/Less: Adjustment to input Tax - Total Adjustment';
+      case 'itc_credit_note':
+        return 'Total Tax Credit';
+      case 'tax_credit_reversed':
+        return 'Decreases in input tax credit due to credit note';
+      case 'tax_credit_reversed':
+        return 'Tax credit reversed/disallowed for the use of goods for purpose other than for which credit is allowed';
+      case 'tot_itc_deduct':
+        return 'Other adjustments(if any)';
+      case 'tot_net_itc':
+        return 'Total Net Input Tax Credit';
+      case 'tax_payable':
+        return 'Tax Payable';
+      case 'interest_penalty_dues':
+        return 'Interest, Penalty or other Dues';
+      case 'total_dues':
+        return 'Total Dues';
+      case 'tax_deducted_at_source':
+        return 'Tax Deducted At Source';
+      case 'balance_excess':
+        return 'Balance/Excess Paid';
+      case 'tax_paid':
+        return 'Tax Paid';
+      case 'balance_due':
+        return 'Balance Due';
+      case 'cst_adjust_liability':
+        return 'Adjusted Against central Sales Tax liability';
+      case 'refund':
+        return 'Refund Claimed';
+      case 'balance_carried_forward':
+        return 'Balance Carried Forward to Next Period';
+      case 'advance_total':
+        return 'Total No of Returns Submitted By Dealer';
+      default:
+        // Return a generic label if no specific label is found
+        return 'Field';
+    }
+  }
+
+
+
+
+  // Function to show form preview modal
+  function showPreview() {
+    var formData = gatherFormData();
+    var previewHTML = generatePreviewHTML(formData);
+    // Set the preview content inside the modal
+    document.getElementById('previewContent').innerHTML = previewHTML;
+    // Show the Bootstrap modal
+    $('#previewModal').modal('show');
+  }
+
+
+  // Function to submit the form
+  function submitForm() {
+    document.getElementById('mainForm').submit();
+  }
+
+
+  // Array to store form data
+  var formDataArray = [];
+
+  // Function to toggle visibility of forms
+  function toggleForm(formId) {
+    var forms = document.getElementsByClassName("form-container");
+    for (var i = 0; i < forms.length; i++) {
+      forms[i].style.display = "none";
+    }
+    document.getElementById(formId).style.display = "block";
+
+    var links = document.getElementsByClassName("navbar")[0].getElementsByTagName("a");
+    for (var i = 0; i < links.length; i++) {
+      links[i].classList.remove("active-link"); // Remove active-link class from all links
+      if (links[i].getAttribute("data-form-id") === formId) {
+        links[i].classList.add("active-link"); // Add active-link class to the link corresponding to the current form
+      }
+    }
+  }
+  // Add an event listener to the navbar links
+  var navLinks = document.querySelectorAll('.navbar a');
+  navLinks.forEach(function(link) {
+    link.addEventListener('click', function(event) {
+      event.preventDefault(); // Prevent default navigation behavior
+      var targetFormId = this.getAttribute('data-form-id');
+      var currentForm = document.querySelector('.form-container.show');
+      var inputs = currentForm.querySelectorAll('input[required]');
+      var allFilled = true;
+      inputs.forEach(function(input) {
+        if (input.value.trim() === '') {
+          allFilled = false;
+        }
+      });
+      if (!allFilled) {
+        alert('Please fill out all required fields before proceeding.');
+      } else {
+        toggleForm(targetFormId);
+      }
+    });
+  });
+
+  function saveAndNext(currentFormId) {
+    // Check if all required fields in the current form are filled
+    var inputs = document.querySelectorAll('#' + currentFormId + ' input[required]');
+    var allFilled = true;
+    inputs.forEach(function(input) {
+      if (input.value.trim() === '') {
+        allFilled = false;
+      }
+    });
+
+    // If any required field is empty, show an alert message
+    if (!allFilled) {
+      alert('Please fill out all required fields before proceeding.');
+    } else {
+      // Hide the current form
+      document.getElementById(currentFormId).style.display = 'none';
+
+      // Calculate the next form ID
+      var currentFormNumber = parseInt(currentFormId.replace('form', ''));
+      var nextFormId = 'form' + (currentFormNumber + 1);
+
+      // Show the next form
+      document.getElementById(nextFormId).style.display = 'block';
+      // Update month and year fields in the next form
+      if (currentFormId === 'form1') {
+        var selectedMonth = document.getElementById('displayMonth').value;
+        var selectedYear = document.getElementById('displayYear').value;
+        document.getElementById('selectedMonth').innerText = selectedMonth;
+        document.getElementById('selectedYear').innerText = selectedYear;
+      }
+    }
+  }
+
+
+
+  document.getElementById('submitButton').addEventListener('click', function(event) {
+    submitForm(event);
+  });
+
+  // function submitForm(event) {
+  //   // Prevent default form submission behavior
+  //   event.preventDefault();
+  //
+  //   // Display confirmation message
+  //   Swal.fire({
+  //     title: 'Submit Form',
+  //     text: 'Are you sure you want to submit this form?',
+  //     icon: 'question',
+  //     showCancelButton: true,
+  //     confirmButtonColor: '#3085d6',
+  //     cancelButtonColor: '#d33',
+  //     confirmButtonText: 'Yes, submit it!'
+  //   }).then((result) => {
+  //
+  //     if (result.isConfirmed) {
+  //       // Get data from each form
+  //       var formData1 = document.getElementById('form1').querySelectorAll('input, select, textarea');
+  //       var formData2 = document.getElementById('form2').querySelectorAll('input, select, textarea');
+  //       var formData3 = document.getElementById('form3').querySelectorAll('input, select, textarea');
+  //       var formData4 = document.getElementById('form4').querySelectorAll('input, select, textarea');
+  //
+  //       // Create FormData objects for each table
+  //       var formDataForTable1 = new FormData();
+  //       var formDataForTable2 = new FormData();
+  //       var formDataForTable3 = new FormData();
+  //       var formDataForTable4 = new FormData();
+  //
+  //       // Add data from each form to the respective FormData object
+  //       addDataToFormData(formData1, formDataForTable1);
+  //       addDataToFormData(formData2, formDataForTable2);
+  //       addDataToFormData(formData3, formDataForTable3);
+  //       addDataToFormData(formData4, formDataForTable4);
+  //
+  //       // Submit data to respective endpoints
+  //       submitFormData(formDataForTable1, '/purchase/submit');
+  //       submitFormData(formDataForTable2, '/sales/submit');
+  //       submitFormData(formDataForTable3, '/total-output-tax-online/submit');
+  //       submitFormData(formDataForTable4, '/purchase-details/submit');
+  //
+  //       // Display success message
+  //       Swal.fire({
+  //         title: 'Success!',
+  //         text: 'Form submitted successfully!',
+  //         icon: 'success',
+  //         confirmButtonColor: '#3085d6'
+  //       });
+  //      // window.location.href = 'welcome.html';
+  //     }
+  //
+  //   });
+  // }
+  // document.getElementById('yourFormId').addEventListener('submit', submitForm);
+
+
+  function submitForm(event) {
+    // Prevent default form submission behavior
+    event.preventDefault();
+
+    // Display confirmation message
+    Swal.fire({
+      title: 'Submit Form',
+      text: 'Are you sure you want to submit this form?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, submit it!'
+    }).then((result) => {
+
+      if (result.isConfirmed) {
+        // Get data from each form
+        var formData1 = document.getElementById('form1').querySelectorAll('input, select, textarea');
+        var formData2 = document.getElementById('form2').querySelectorAll('input, select, textarea');
+        var formData3 = document.getElementById('form3').querySelectorAll('input, select, textarea');
+        var formData4 = document.getElementById('form4').querySelectorAll('input, select, textarea');
+
+        // Create FormData objects for each table
+        var formDataForTable1 = new FormData();
+        var formDataForTable2 = new FormData();
+        var formDataForTable3 = new FormData();
+        var formDataForTable4 = new FormData();
+
+        // Add data from each form to the respective FormData object
+        addDataToFormData(formData1, formDataForTable1);
+        addDataToFormData(formData2, formDataForTable2);
+        addDataToFormData(formData3, formDataForTable3);
+        addDataToFormData(formData4, formDataForTable4);
+
+        // Submit data to respective endpoints
+        submitFormData(formDataForTable1, '/purchase/submit');
+        submitFormData(formDataForTable2, '/sales/submit');
+        submitFormData(formDataForTable3, '/total-output-tax-online/submit');
+        submitFormData(formDataForTable4, '/purchase-details/submit');
+
+        // Display success message
+        Swal.fire({
+          title: 'Success!',
+          text: 'Form submitted successfully!',
+          icon: 'success',
+          confirmButtonColor: '#3085d6'
+        }).then(() => {
+          // Redirect to welcome.html after success message is dismissed
+          window.location.href = '/welcome.html';
+        });
+      }
+    });
+  }
+
+
+  function addDataToFormData(formDataArray, formData) {
+    formDataArray.forEach(function(input) {
+      formData.append(input.name, input.value);
+    });
+  }
+  // Add event listener to the preview button
+  document.getElementById("previewButton").addEventListener("click", function() {
+    // Redirect to the preview.html page
+    window.location.href = "preview.html";
+  });
+
+  function submitFormData(formData, endpoint) {
+    fetch(endpoint, {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+      }
+    }).then(function(response) {
+      // Handle response as needed
+    }).catch(function(error) {
+      // Handle error
+    });
+  }
+  // Function to retrieve parameters from URL
+  function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+  }
+
+  // Retrieve parameters and display them
+  var fromMonth = getParameterByName('fromMonth');
+  var fromYear = getParameterByName('fromYear');
+  var toMonth = getParameterByName('toMonth');
+  var toYear = getParameterByName('toYear');
+
+  document.getElementById("fromMonth").innerText = fromMonth;
+  document.getElementById("fromYear").innerText = fromYear;
+  document.getElementById("toMonth").innerText = toMonth;
+  document.getElementById("toYear").innerText = toYear;
+
+</script>
+
+</body>
+</html>

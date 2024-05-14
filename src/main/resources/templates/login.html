@@ -1,0 +1,271 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Login</title>-->
+<!--    &lt;!&ndash; Include Bootstrap CSS &ndash;&gt;-->
+<!--    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">-->
+<!--    &lt;!&ndash; Include Font Awesome for icons &ndash;&gt;-->
+<!--    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">-->
+<!--    &lt;!&ndash; Optional: Add custom styles for your login form &ndash;&gt;-->
+<!--    <style>-->
+<!--        /* Add custom styles here */-->
+<!--        .login-container {-->
+<!--            max-width: 400px;-->
+<!--            margin: auto;-->
+<!--            margin-top: 50px;-->
+<!--            background-color: #f0f0f0; /* Add background color */-->
+<!--            padding: 20px; /* Add padding for spacing */-->
+<!--            border-radius: 10px; /* Add border radius for rounded corners */-->
+<!--            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);-->
+<!--        }-->
+<!--        .login-container form {-->
+<!--            background-color: #ffffff; /* Add background color to form */-->
+<!--            padding: 20px;-->
+<!--            border-radius: 5px;-->
+<!--            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);-->
+<!--        }-->
+<!--        .login-container h2 {-->
+<!--            text-align: center;-->
+<!--            margin-bottom: 20px;-->
+<!--        }-->
+<!--        .login-button {-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--            justify-content: center;-->
+<!--        }-->
+<!--        .login-button .btn-text {-->
+<!--            margin-right: 10px;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="container login-container">-->
+<!--    <h2>SIGN IN</h2>-->
+<!--    <form action="/login" method="post">-->
+<!--        <div class="form-group">-->
+<!--            <label for="username"><i class="fas fa-user"></i> Username:</label>-->
+<!--            <input type="text" class="form-control" id="username" name="username" required>-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <label for="password"><i class="fas fa-lock"></i> Password:</label>-->
+<!--            <input type="password" class="form-control" id="password" name="password" required>-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <label for="vatRcNo"><i class="fas fa-id-card"></i> Tin Number:</label>-->
+<!--            <input type="text" class="form-control" id="vatRcNo" name="vatRcNo" required>-->
+<!--        </div>-->
+<!--        &lt;!&ndash; Add CSRF token input field &ndash;&gt;-->
+<!--        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />-->
+<!--        <button type="submit" class="btn btn-primary btn-sm login-button">-->
+<!--            <span class="btn-text">Login</span>-->
+<!--            <i class="fas fa-sign-in-alt"></i>-->
+<!--        </button>-->
+<!--    </form>-->
+<!--    <p th:if="${param.error}" class="text-danger">Invalid username or password</p>-->
+<!--</div>-->
+<!--&lt;!&ndash; Include Bootstrap JS (optional) &ndash;&gt;-->
+<!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>-->
+<!--</body>-->
+<!--</html>-->
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+    <style>
+        /* Additional styles */
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: #f8f9fa;
+            position: relative;
+        }
+        .login-wrap {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+        }
+        .icon {
+            font-size: 50px;
+            color: #007bff;
+        }
+        .login-form {
+            width: 100%;
+        }
+        .checkbox-wrap {
+            position: relative;
+            cursor: pointer;
+            user-select: none;
+            padding-left: 25px;
+        }
+        .checkbox-wrap input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 20px;
+            width: 20px;
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        .checkbox-wrap:hover input ~ .checkmark {
+            background-color: #f0f0f0;
+        }
+        .checkbox-wrap input:checked ~ .checkmark {
+            background-color: #007bff;
+        }
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+        .checkbox-wrap input:checked ~ .checkmark:after {
+            display: block;
+        }
+        .checkbox-wrap .checkmark:after {
+            left: 6px;
+            top: 2px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+        /* Rectangular toggle switch */
+        .toggle-switch {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 150px;
+            height: 50px;
+            background-color: #ffffff;
+            border: 2px solid #007bff;
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            padding: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .toggle-switch.active {
+            background-color: #007bff;
+        }
+        .toggle-switch .option {
+            font-size: 16px;
+            font-weight: bold;
+            color: #007bff;
+            display: none; /* Hide the options initially */
+        }
+        .toggle-switch.active .option {
+            color: #ffffff;
+            display: inline; /* Display the active option */
+        }
+    </style>
+</head>
+<body>
+
+<div class="toggle-switch" id="toggleSwitch">
+    <span class="option active">Dealer</span>
+    <span class="option">Circle Officer</span>
+</div>
+
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center mb-5">
+
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-7 col-lg-5">
+                <div class="login-wrap p-4 p-md-5">
+                    <div class="icon d-flex align-items-center justify-content-center">
+                        <span class="fa fa-user-o"></span>
+                    </div>
+                    <h3 class="text-center mb-4">Sign In</h3>
+<!--                    <form action="#" class="login-form" id="dealerLogin">-->
+                        <form action="/login" th:action="@{/login}" class="login-form" id="dealerLogin" method="post">
+                        <div class="form-group">
+                                <input type="text" class="form-control rounded-left" id="username" name="username" placeholder="Dealer Username" required>
+<!--                            <label for="username"><i class="fas fa-user"></i> Username:</label>-->
+<!--                            <input type="text" class="form-control rounded-left" id="username" name="username" required>-->
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control rounded-left" id="password" name="password" placeholder="Dealer Password" required>
+<!--                        <label for="password"><i class="fas fa-lock"></i> Password:</label>-->
+<!--                        <input type="password" class="form-control" id="password" name="password" required>-->
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control rounded-left" id="vatRcNo" name="vatRcNo" placeholder="Dealer Tin Number" required>
+<!--                        <label for="vatRcNo"><i class="fas fa-id-card"></i> Tin Number:</label>-->
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="form-control btn btn-primary rounded submit px-3">Login</button>
+                        </div>
+                    </form>
+
+                    <form action="/login-circle-officer" th:action="@{/login-circle-officer}" class="login-form" id="circleOfficerLogin" method="post" style="display: none;">
+                        <div class="form-group">
+                            <input type="text" class="form-control rounded-left" id="cname" name="cname" placeholder="Circle Officer Username" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control rounded-left" id="cPassword" name="cPassword" placeholder="Circle Officer Password" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control rounded-left"  id="cCode" name="cCode" placeholder="Circle Code" required>
+
+                        </div>
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                        <div class="form-group">
+                            <button type="submit" class="form-control btn btn-primary rounded submit px-3">Login</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/popper.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    // Toggle between dealer and circle officer login forms
+    document.getElementById('toggleSwitch').addEventListener('click', function() {
+        var dealerLogin = document.getElementById('dealerLogin');
+        var circleOfficerLogin = document.getElementById('circleOfficerLogin');
+        var dealerOption = document.querySelector('.toggle-switch .option:nth-child(1)');
+        var circleOption = document.querySelector('.toggle-switch .option:nth-child(2)');
+
+        if (dealerOption.classList.contains('active')) {
+            dealerOption.classList.remove('active');
+            circleOption.classList.add('active');
+            dealerLogin.style.display = 'none';
+            circleOfficerLogin.style.display = 'block';
+        } else {
+            dealerOption.classList.add('active');
+            circleOption.classList.remove('active');
+            dealerLogin.style.display = 'block';
+            circleOfficerLogin.style.display = 'none';
+        }
+    });
+</script>
+</body>
+</html>

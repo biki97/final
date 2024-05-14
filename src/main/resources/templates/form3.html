@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchases in the Quarter</title>
+    <!-- Include Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Optional: Add custom styles for your welcome page -->
+    <style>
+        /* Add custom styles here */
+        body {
+            background-color: #f8f9fa;
+        }
+        .table th {
+            color: #004578; /* Red color for table headings */
+            text-transform: uppercase; /* Convert text to uppercase */
+        }
+        .card {
+            width: 100%; /* Adjust width of the card */
+            margin: 20px auto; /* Center the card and add some margin */
+        }
+        .card-body {
+            padding: 20px; /* Increase padding inside the card body */
+        }
+        .btn-next {
+            background-color: #007bff; /* Change button color */
+            border-color: #007bff;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="fragments/navbar :: header(currentForm='form3')"></div> <!-- Pass the currentForm variable -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 offset-md-1">
+            <form id="form3" action="/total-output-tax-online/submit" method="post">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                <div class="card">
+                    <div class="card-header bg-secondary text-white">
+                        Enter the Deatails
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <h2 class="text-left">TAX CALCULATION</h2>
+                                <tbody>
+                                <tr>
+                                    <td><label>20.Output Tax:</label></td>
+                                    <td></td>
+                                    <td><input type="text" name="" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                                </tr>
+                                </tbody>
+                                <tbody>
+                                <tr>
+                                    <td><label>21.Add/Less: Adjustment to output Tax if any:-</label></td>
+                                    <td></td>
+                                    <td></td>
+                                <tr>
+                                    <td><label><p>a)Sale Cancelled </p></label></td>
+                                    <td></td>
+                                    <td><input type="text" name="sales_cancelled" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                                </tr>
+                                <tr>
+                                    <td><label><p>b)Return of Sold Goods:</p></label></td>
+                                    <td></td>
+                                    <td><input type="text" name="returns_of_sold_goods" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                                </tr>
+                                <tr>
+                                    <td><label><p>c)Other Adjustment-(i)To be Added:</p></label></td>
+                                    <td></td>
+                                    <td><input type="text" name="oth_adjustment_add" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                                </tr>
+                                <tr>
+                                    <td><label><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(ii)To be Substracted:</p></label></td>
+                                    <td></td>
+                                    <td><input type="text" name="oth_adjustment_sub" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                                </tr>
+                                <tr>
+                                    <td><label>Total Adjustment:-</label></td>
+                                    <td></td>
+                                    <td><input type="text" name="tot_adjustment" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                                </tr>
+                                </tr>
+                                </tbody>
+                                <tbody>
+                                <tr>
+                                    <td><label>22.Total Output Tax:</label></td>
+                                    <td></td>
+                                    <td><input type="text" name="total_output_tax" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card-footer text-right">
+                        <button type="button" class="btn btn-secondary mr-2" onclick="goBack2()">Previous</button>
+                        <button type="button" class="btn btn-secondary mr-2" onclick="goBack()">Back</button>
+                        <!-- Next button -->
+                        <button type="button" class="btn btn-next" onclick="nextPage()">Save & Next</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Include Bootstrap JS (optional) -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    function goBack() {
+        window.history.back();
+    }
+    function goBack2() {
+        window.location.href = 'form1.html';
+    }
+    function nextPage() {
+        // Check if all required fields are filled
+        var inputs = document.querySelectorAll('input[required]');
+        var allFilled = true;
+        inputs.forEach(function (input) {
+            if (input.value.trim() === '') {
+                allFilled = false;
+            }
+        });
+
+        // If any required field is empty, show an alert message
+        if (!allFilled) {
+            alert('Please fill out all required fields before proceeding.');
+        } else {
+            // Proceed to the next page if all fields are filled
+            window.location.href = 'form4.html';
+        }
+    }
+</script>
+</body>
+</html>
+

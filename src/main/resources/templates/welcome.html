@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+    <!-- Include Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Include Font Awesome CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <!-- Optional: Add custom styles for your welcome page -->
+    <style>
+        /* Add custom styles here */
+        body {
+            background-color: #f8f9fa;
+        }
+        .navbar {
+            background-color: #808080; /* Grey color for the navbar */
+        }
+        .welcome-container {
+            max-width: 800px; /* Increased width to accommodate four dropdowns */
+            margin: auto;
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .welcome-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .navbar-text {
+            color: #ffffff; /* White color for the text */
+            margin-right: 15px;
+        }
+        .dropdown-divider {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fas fa-bars"></i> Menu</a>
+                </li>
+            </ul>
+            <span class="navbar-text">Welcome, <span th:text="${username}"></span></span>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <form id="logoutForm" action="/logout" method="post">
+                        <!-- CSRF Token -->
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                        <button type="submit" class="btn btn-primary">Logout</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<form id="submitForm" action="/mrc/save-date" method="POST">
+    <!-- CSRF Token -->
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+    <div class="container welcome-container">
+        <div class="text-center mt-3">
+            <h1>Period covered by this return</h1>
+        </div>
+        <div class="row">
+            <div class="col-md">
+                <div><h6>From</h6></div>
+                <div class="dropdown" style="display: inline-block;">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" name="fromMonth" id="fromMonth" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Select Month
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuMonth1">
+                    </div>
+                </div>
+                <div class="dropdown-divider" style="display: inline-block;"></div>
+                <div class="dropdown" style="display: inline-block;">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" name="fromYear" id="fromYear" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Select Year
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuYear">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md">
+                <div><h6>To</h6></div>
+                <div class="dropdown" style="display: inline-block;">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" name="toMonth" id="toMonth" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Select Month
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuMonth2">
+                    </div>
+                </div>
+                <div class="dropdown-divider" style="display: inline-block;"></div>
+                <div class="dropdown" style="display: inline-block;">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" name="toYear" id="toYear" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Select Year
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuYear">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-right mt-3">
+            <button form="submitForm" type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+    <input  type="hidden" id="fromMonthInput" name="fromMonth">
+    <input  type="hidden" id="fromYearInput" name="fromYear">
+    <input  type="hidden" id="toMonthInput" name="toMonth">
+    <input  type="hidden" id="toYearInput" name="toYear">
+    <script>
+
+        // function redirectToForm() {
+        //     let fromMonth = document.getElementById("fromMonthInput").value;
+        //     let fromYear = document.getElementById("fromYearInput").value;
+        //     let toMonth = document.getElementById("toMonthInput").value;
+        //     let toYear = document.getElementById("toYearInput").value;
+        //     //
+        //     // var url = 'form1.html?fromMonth=' + encodeURIComponent(fromMonth) +
+        //     //     '&fromYear=' + encodeURIComponent(fromYear) +
+        //     //     '&toMonth=' + encodeURIComponent(toMonth) +
+        //     //     '&toYear=' + encodeURIComponent(toYear);
+        //     //
+        //     // window.location.href = url;
+        // }
+
+
+
+    </script>
+</form>
+
+
+<!-- Include Bootstrap JS (optional) -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Define a mapping between months in the first and second dropdown menus
+        var monthMapping = {
+            "January": "March",
+            "April": "June",
+            "July": "September",
+            "October": "December"
+        };
+
+        // Function to update hidden input field value
+        function updateHiddenField(inputField, value) {
+            inputField.value = value;
+        }
+
+        // Function to populate dropdown menus with months
+        function populateDropdown(dropdownId, disableUpTo) {
+            var dropdownMenu = document.getElementById(dropdownId).nextElementSibling; // Get the next sibling which is the dropdown menu
+            dropdownMenu.innerHTML = ''; // Clear existing options
+
+            // Define months to include based on the dropdownId
+            var monthsToInclude = [];
+            if (dropdownId === "fromMonth") {
+                monthsToInclude = ["January", "April", "July", "October"];
+            } else if (dropdownId === "toMonth") {
+                monthsToInclude = ["March", "June", "September", "December"];
+            } else {
+                monthsToInclude = months;
+            }
+
+            // Loop through months array and create <a> tags for each included month
+            monthsToInclude.forEach(function (month, index) {
+                var monthLink = document.createElement("a");
+                monthLink.href = "#";
+                monthLink.textContent = month;
+                monthLink.className = "dropdown-item";
+                monthLink.addEventListener("click", function () {
+                    document.getElementById(dropdownId).innerText = month; // Update button text
+                    updateHiddenField(document.getElementById(dropdownId + "Input"), month); // Update hidden input field
+                    // Automatically select the corresponding month in the second dropdown
+                    if (dropdownId === "fromMonth") {
+                        var correspondingMonth = monthMapping[month];
+                        document.getElementById("toMonth").innerText = correspondingMonth;
+                        updateHiddenField(document.getElementById("toMonthInput"), correspondingMonth); // Update hidden input field
+                    }
+                });
+                dropdownMenu.appendChild(monthLink);
+            });
+        }
+
+        // Call populateDropdown function for each dropdown menu
+        populateDropdown("fromMonth");
+        populateDropdown("toMonth");
+
+        // Function to populate dropdown menus with years
+        function populateYearDropdown() {
+            document.querySelectorAll('[id^="fromYear"]').forEach(function (dropdownYear) {
+                var dropdownMenu = dropdownYear.nextElementSibling;
+                dropdownMenu.innerHTML = '';
+
+                var startYear = 2009;
+                var endYear = new Date().getFullYear();
+
+                for (var year = startYear; year <= endYear; year++) {
+                    var yearLink = document.createElement("a");
+                    yearLink.href = "#";
+                    yearLink.textContent = year;
+                    yearLink.className = "dropdown-item";
+                    yearLink.addEventListener("click", function (event) {
+                        event.preventDefault();
+                        var selectedYear = event.target.textContent;
+                        dropdownYear.innerText = selectedYear;
+                        updateHiddenField(document.getElementById(dropdownYear.id.replace("Year", "YearInput")), selectedYear); // Update hidden input field
+                        var correspondingYearDropdown = document.getElementById(dropdownYear.id.replace("from", "to"));
+                        correspondingYearDropdown.innerText = selectedYear;
+                        updateHiddenField(document.getElementById(correspondingYearDropdown.id.replace("Year", "YearInput")), selectedYear); // Update hidden input field
+                    });
+                    dropdownMenu.appendChild(yearLink);
+                }
+            });
+        }
+
+        // Call populateYearDropdown function
+        populateYearDropdown();
+
+    });
+
+</script>
+</body>
+</html>

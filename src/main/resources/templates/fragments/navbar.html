@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- Include Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Optional: Add custom styles for your welcome page -->
+    <style>
+        /* Add custom styles here */
+        body {
+            background-color: #f8f9fa;
+        }
+        .nav-link.active {
+            background-color: #007bff;
+        }
+        /* Custom class for active link */
+        .active-link {
+            color: #ff6347; /* Change color of active link */
+        }
+    </style>
+</head>
+<body>
+<div th:fragment="header">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <!-- Navigation Bar -->
+                <ul class="nav nav-pills ml-auto"> <!-- Added ml-auto class here -->
+                    <li class="nav-item">
+                        <a id="form1" class="nav-link text-white active-link" th:href="@{/form1.html}">Form 1</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="form2" class="nav-link text-white" th:href="@{/form2.html}">Form 2</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="form3" class="nav-link text-white" th:href="@{/form3.html}">Form 3</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="form4" class="nav-link text-white" th:href="@{/form4.html}">Form 4</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="form5" class="nav-link text-white" th:href="@{/form5.html}">Form 5</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" th:href="@{/welcome.html}">HOME</a>
+                    </li>
+                    <!-- Add more navigation links for other forms -->
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var currentFormId = sessionStorage.getItem('currentFormId'); // Retrieve the last clicked form ID
+
+        // Highlight the last clicked form button, if available
+        if (currentFormId) {
+            var currentFormButton = document.getElementById(currentFormId);
+            if (currentFormButton) {
+                currentFormButton.classList.add('active-link'); // Add active-link class
+            }
+        }
+
+        // Highlight the clicked button and store its ID in sessionStorage
+        var navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(function (link) {
+            link.addEventListener('click', function () {
+                // Remove 'active-link' class from all links
+                navLinks.forEach(function (l) {
+                    l.classList.remove('active-link');
+                });
+                // Add 'active-link' class to the clicked link
+                link.classList.add('active-link');
+
+                // Store the ID of the clicked form button in sessionStorage
+                sessionStorage.setItem('currentFormId', link.id);
+            });
+        });
+    });
+</script>
+
+
+</body>
+</html>

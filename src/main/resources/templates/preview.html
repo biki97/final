@@ -1,0 +1,500 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <meta name="csrf-token" content="csrf-token">-->
+<!--    <title>Form Preview</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>Form Preview</h1>-->
+<!--<input type="hidden" id="csrf_token" name="csrf_token" value="your_csrf_token_here">-->
+<!--&lt;!&ndash; Preview section for each form step &ndash;&gt;-->
+<!--&lt;!&ndash; Preview section &ndash;&gt;-->
+<!--<div id="previewSection" style="display: none;">-->
+<!--    &lt;!&ndash; Entire form content goes here &ndash;&gt;-->
+<!--        <div id="previewForm1">-->
+<!--            <h2>Step 1: Form 1</h2>-->
+<!--            <div class="table-responsive">-->
+<!--                <table class="table">-->
+<!--                    <thead>-->
+<!--                    <tr>-->
+<!--                        <th>Purchases in the Quarter (Input)</th>-->
+<!--                        <th>Value Excluding VAT (A)</th>-->
+<!--                        <th>VAT Claimed (B)</th>-->
+<!--                    </tr>-->
+<!--                    </thead>-->
+<!--                    <tbody>-->
+<!--                    <tr>-->
+<!--                        <td>Exempt or non-creditable purchases:</td>-->
+<!--                        <td><span id="p_exempt_rate_a"></span></td>-->
+<!--                        <td><span id="p_exempt_rate_b"></span></td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td><input type="text" value="5" disabled>% Rate Purchases:</td>-->
+<!--                        <td><span id="p_4_rate_a"></span></td>-->
+<!--                        <td><span id="p_4_rate_b"></span></td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td><input type="text" value="6" disabled>% Rate Purchases:</td>-->
+<!--                        <td><span id="p_12_5_rate_a"></span></td>-->
+<!--                        <td><span id="p_12_5_rate_b"></span></td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td>1% Rate purchases:</td>-->
+<!--                        <td><span id="p_1_rate_a"></span></td>-->
+<!--                        <td><span id="p_1_rate_b"></span></td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td><input type="text" value="8" disabled>% Rate Purchases(Schedule V):</td>-->
+<!--                        <td><span id="rate_p_8_a"></span></td>-->
+<!--                        <td><span id="rate_p_8_b"></span></td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td><input type="text" value="9" disabled>% Rate Purchases(Schedule V):</td>-->
+<!--                        <td><span id="rate_p_9_a"></span></td>-->
+<!--                        <td><span id="rate_p_9_b"></span></td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td>Total Amount of Input Tax:</td>-->
+<!--                        <td></td>-->
+<!--                        <td><span id="tot_amt_imp_tax"></span></td>-->
+<!--                    </tr>-->
+<!--                    </tbody>-->
+<!--                </table>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    <div id="previewForm2">-->
+<!--    <h2>Step 2: Form 2</h2>-->
+<!--    <div class="table-responsive">-->
+<!--        <table class="table">-->
+<!--            <thead>-->
+<!--            <tr>-->
+<!--                <th>SALES IN THE QUARTER (OUTPUT)</th>-->
+<!--                <th>Value Excluding VAT (A)</th>-->
+<!--                <th>VAT DUE (B)</th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+<!--            <tbody>-->
+<!--            <tr>-->
+<!--                <td>Exempt sales:</td>-->
+<!--                <td><span id="s_exempt_rate_a"></span></td>-->
+<!--                <td><span id="s_exempt_rate_b"></span></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>Zero Rate Sales International Exports:</td>-->
+<!--                <td><span id="s_0_rate_a"></span></td>-->
+<!--                <td><span id="s_0_rate_b"></span></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>Zero Rate Sales-Others(CST Sales)</td>-->
+<!--                <td><span id="s_0_rate_cst_a"></span></td>-->
+<!--                <td><span id="s_0_rate_cst_b"></span></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>Tax Due On Purchase Of Goods (if any):</td>-->
+<!--                <td><span id="rate_s_8_a"></span>%</td>-->
+<!--                <td><span id="s_tax_due_a"></span></td>-->
+<!--                <td><span id="s_tax_due_b"></span></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td><input type="text" value="15" disabled>% Rate Sales:</td>-->
+<!--                <td><span id="s_4_rate_a"></span></td>-->
+<!--                <td><span id="s_4_rate_b"></span></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td><input type="text" value="16" disabled>% Rate Sales:</td>-->
+<!--                <td><span id="s_12_5_rate_a"></span></td>-->
+<!--                <td><span id="s_12_5_rate_b"></span></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td><input type="text" value="17" disabled>% Rate Sales:</td>-->
+<!--                <td><span id="s_1_rate_a"></span></td>-->
+<!--                <td><span id="s_1_rate_b"></span></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>(a) <input type="text" value="18" disabled>% Rate Sales:</td>-->
+<!--                <td><span id="s_1schedule_v_a"></span></td>-->
+<!--                <td><span id="s_1schedule_v_b"></span></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>(b) <input type="text" name="sales_due_rate" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>% Rate Sales:</td>-->
+<!--                <td><span id="s_2schedule_v_a"></span></td>-->
+<!--                <td><span id="s_2schedule_v_b"></span></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>Total Amount of Output Tax:</td>-->
+<!--                <td></td>-->
+<!--                <td><span id="tot_amt_out_tax"></span></td>-->
+<!--            </tr>-->
+<!--            </tbody>-->
+<!--        </table>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<div id="previewForm3">-->
+<!--    <h2>TAX CALCULATION</h2>-->
+<!--    <div class="table-responsive">-->
+<!--        <table class="table">-->
+<!--            <tbody>-->
+<!--            <tr>-->
+<!--                <td>Output Tax:</td>-->
+<!--                <td></td>-->
+<!--                <td><span id="preview_output_tax"></span></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>Add/Less: Adjustment to Output Tax if any:</td>-->
+<!--                <td></td>-->
+<!--                <td></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>a) Sale Cancelled:</td>-->
+<!--                <td></td>-->
+<!--                <td><span id="preview_sales_cancelled"></span></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>b) Return of Sold Goods:</td>-->
+<!--                <td></td>-->
+<!--                <td><span id="preview_returns_of_sold_goods"></span></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>c) Other Adjustment - To be Added:</td>-->
+<!--                <td></td>-->
+<!--                <td><span id="preview_oth_adjustment_add"></span></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(ii) To be Subtracted:</td>-->
+<!--                <td></td>-->
+<!--                <td><span id="preview_oth_adjustment_sub_3"></span></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>Total Adjustment:</td>-->
+<!--                <td></td>-->
+<!--                <td><span id="preview_tot_adjustment"></span></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>Total Output Tax:</td>-->
+<!--                <td></td>-->
+<!--                <td><span id="preview_total_output_tax"></span></td>-->
+<!--            </tr>-->
+<!--            </tbody>-->
+<!--        </table>-->
+<!--    </div>-->
+<!--</div>-->
+<!--<div id="previewForm4">-->
+<!--    <div class="card">-->
+<!--        <div class="card-body">-->
+<!--            <div class="table-responsive">-->
+<!--                <table class="table">-->
+<!--                    <tbody>-->
+<!--                    <tr>-->
+<!--                        <td><label>23. Input Tax credit on Purchases:</label></td>-->
+<!--                        <td></td>-->
+<!--                        <td><span id="preview_stock_on_transition"></span></td>-->
+<!--                    </tr>-->
+<!--                    &lt;!&ndash; Add/Less: Adjustment to input Tax if any &ndash;&gt;-->
+<!--                    <tr>-->
+<!--                        <td><label>24. Add/Less: Adjustment to input Tax if any:</label></td>-->
+<!--                        <td></td>-->
+<!--                        <td></td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td><label>a) Input Tax Credit Carried Forward from previous tax period:</label></td>-->
+<!--                        <td></td>-->
+<!--                        <td><span id="preview_itc_carried_forward"></span></td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td><label>b) Input Tax Credit on capital goods:</label></td>-->
+<!--                        <td></td>-->
+<!--                        <td><span id="preview_itc_capital_goods"></span></td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td><label>c) Increase on input Tax Credit due to debit note:</label></td>-->
+<!--                        <td></td>-->
+<!--                        <td><span id="preview_itc_debit_note"></span></td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td><label>d) Other Adjustments if any (specify):</label></td>-->
+<!--                        <td></td>-->
+<!--                        <td><span id="preview_total_itc"></span></td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td><label>Total Tax Credit:</label></td>-->
+<!--                        <td></td>-->
+<!--                        <td><span id="preview_itc_credit_note"></span></td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td><label>e) Decreases in input tax credit due to credit note:</label></td>-->
+<!--                        <td></td>-->
+<!--                        <td><span id="preview_tax_credit_reversed"></span></td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td><label>f) Tax credit reversed/disallowed for the use of goods for purpose other than for which credit is allowed:</label></td>-->
+<!--                        <td></td>-->
+<!--                        <td><span id="preview_oth_adjustment_sub"></span></td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td><label>g) Other adjustments(if any):</label></td>-->
+<!--                        <td></td>-->
+<!--                        <td><span id="preview_tot_itc_deduct"></span></td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td><label>Total Net Input Tax Credit:</label></td>-->
+<!--                        <td></td>-->
+<!--                        <td><span id="preview_tot_net_itc"></span></td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td><label>26. Tax Payable:</label></td>-->
+<!--                        <td><span id="preview_tax_payable"></span></td>-->
+<!--                        <td></td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td><label>27. Interest, Penalty or other Dues:</label></td>-->
+<!--                        <td><span id="preview_interest_penalty_dues"></span></td>-->
+<!--                        <td></td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td><label>28. Total Dues:</label></td>-->
+<!--                        <td><span id="preview_total_dues"></span></td>-->
+<!--                        <td></td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td><label>29. Less Tax Deducted At Source:</label></td>-->
+<!--                        <td><span id="preview_tax_deducted_at_source"></span></td>-->
+<!--                        <td></td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td><label>30. Balance/Excess Paid:</label></td>-->
+<!--                        <td><span id="preview_balance_excess"></span></td>-->
+<!--                        <td></td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td><label>31. Tax Paid:</label></td>-->
+<!--                        <td><span id="preview_tax_paid"></span></td>-->
+<!--                        <td></td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td><label>32. Balance Due:</label></td>-->
+<!--                        <td><span id="preview_balance_due"></span></td>-->
+<!--                        <td></td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td><label>33. Adjusted Against central Sales Tax liability:</label></td>-->
+<!--                        <td><span id="preview_cst_adjust_liability"></span></td>-->
+<!--                        <td></td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td><label>34. Refund Claimed:</label></td>-->
+<!--                        <td><span id="preview_refund"></span></td>-->
+<!--                        <td></td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td><label>Balance Carried Forward to Next Period:</label></td>-->
+<!--                        <td><span id="preview_balance_carried_forward"></span></td>-->
+<!--                        <td></td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td><label>Total No of Returns Submitted By Dealer:</label></td>-->
+<!--                        <td><span id="preview_advance_total"></span></td>-->
+<!--                        <td></td>-->
+<!--                    </tr>-->
+<!--                    </tbody>-->
+<!--                </table>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; Include preview sections for other form steps &ndash;&gt;-->
+
+<!--&lt;!&ndash; Navigation buttons &ndash;&gt;-->
+<!--<button id="backButton" onclick="goBack()">Back</button>-->
+<!--<button id="submitButton" onclick="submitForm()">Submit</button>-->
+
+<!--<script>-->
+<!--    // Function to go back to the previous step-->
+<!--    function goBack() {-->
+<!--        // Determine the current step and navigate back accordingly-->
+<!--        // For example:-->
+<!--        // document.getElementById('previewForm2').style.display = 'none';-->
+<!--        // document.getElementById('previewForm1').style.display = 'block';-->
+<!--    }-->
+
+<!--    // Function to submit the form-->
+<!--    // Function to submit the form-->
+<!--    function submitForm() {-->
+<!--        // Retrieve the CSRF token from the meta tag-->
+<!--        var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');-->
+
+<!--        // Your form submission logic here-->
+<!--        // For example, using fetch API for AJAX request-->
+<!--        fetch('your_form_submission_endpoint', {-->
+<!--            method: 'POST',-->
+<!--            headers: {-->
+<!--                'Content-Type': 'application/json',-->
+<!--                'X-CSRF-Token': csrfToken // Include the CSRF token in the headers-->
+<!--            },-->
+<!--            body: JSON.stringify(yourFormData) // Replace yourFormData with the actual form data-->
+<!--        })-->
+<!--            .then(response => response.json())-->
+<!--            .then(data => {-->
+<!--                // Handle response-->
+<!--            })-->
+<!--            .catch(error => {-->
+<!--                console.error('Error:', error);-->
+<!--            });-->
+<!--    }-->
+
+<!--    // Function to populate preview form with data from form1-->
+<!--    function populatePreviewForms() {-->
+<!--        // Form 1 data-->
+<!--        var p_exempt_rate_a = document.querySelector('input[name="p_exempt_rate_a"]').value;-->
+<!--        var p_exempt_rate_b = document.querySelector('input[name="p_exempt_rate_b"]').value;-->
+<!--        var p_4_rate_a = document.querySelector('input[name="p_4_rate_a"]').value;-->
+<!--        var p_4_rate_b = document.querySelector('input[name="p_4_rate_b"]').value;-->
+<!--        var p_12_5_rate_a = document.querySelector('input[name="p_12_5_rate_a"]').value;-->
+<!--        var p_12_5_rate_b = document.querySelector('input[name="p_12_5_rate_b"]').value;-->
+<!--        var p_1_rate_a = document.querySelector('input[name="p_1_rate_a"]').value;-->
+<!--        var p_1_rate_b = document.querySelector('input[name="p_1_rate_b"]').value;-->
+<!--        var rate_p_8_a = document.querySelector('input[name="rate_p_8_a"]').value;-->
+<!--        var rate_p_8_b = document.querySelector('input[name="rate_p_8_b"]').value;-->
+<!--        var rate_p_9_a = document.querySelector('input[name="rate_p_9_a"]').value;-->
+<!--        var rate_p_9_b = document.querySelector('input[name="rate_p_9_b"]').value;-->
+<!--        var tot_amt_imp_tax = document.querySelector('input[name="tot_amt_imp_tax"]').value;-->
+
+<!--        // Populate preview form with data from form 1-->
+<!--        document.getElementById('p_exempt_rate_a').innerText = p_exempt_rate_a;-->
+<!--        document.getElementById('p_exempt_rate_b').innerText = p_exempt_rate_b;-->
+<!--        document.getElementById('p_4_rate_a').innerText = p_4_rate_a;-->
+<!--        document.getElementById('p_4_rate_b').innerText = p_4_rate_b;-->
+<!--        document.getElementById('p_12_5_rate_a').innerText = p_12_5_rate_a;-->
+<!--        document.getElementById('p_12_5_rate_b').innerText = p_12_5_rate_b;-->
+<!--        document.getElementById('p_1_rate_a').innerText = p_1_rate_a;-->
+<!--        document.getElementById('p_1_rate_b').innerText = p_1_rate_b;-->
+<!--        document.getElementById('rate_p_8_a').innerText = rate_p_8_a;-->
+<!--        document.getElementById('rate_p_8_b').innerText = rate_p_8_b;-->
+<!--        document.getElementById('rate_p_9_a').innerText = rate_p_9_a;-->
+<!--        document.getElementById('rate_p_9_b').innerText = rate_p_9_b;-->
+<!--        document.getElementById('tot_amt_imp_tax').innerText = tot_amt_imp_tax;-->
+
+<!--        // Form 2 data-->
+<!--        var s_exempt_rate_a = document.querySelector('input[name="s_exempt_rate_a"]').value;-->
+<!--        var s_exempt_rate_b = document.querySelector('input[name="s_exempt_rate_b"]').value;-->
+<!--        var s_0_rate_a = document.querySelector('input[name="s_0_rate_a"]').value;-->
+<!--        var s_0_rate_b = document.querySelector('input[name="s_0_rate_b"]').value;-->
+<!--        var s_0_rate_cst_a = document.querySelector('input[name="s_0_rate_cst_a"]').value;-->
+<!--        var s_0_rate_cst_b = document.querySelector('input[name="s_0_rate_cst_b"]').value;-->
+<!--        var rate_s_8_a = document.querySelector('input[name="rate_s_8_a"]').value;-->
+<!--        var s_tax_due_a = document.querySelector('input[name="s_tax_due_a"]').value;-->
+<!--        var s_tax_due_b = document.querySelector('input[name="s_tax_due_b"]').value;-->
+<!--        var s_4_rate_a = document.querySelector('input[name="s_4_rate_a"]').value;-->
+<!--        var s_4_rate_b = document.querySelector('input[name="s_4_rate_b"]').value;-->
+<!--        var s_12_5_rate_a = document.querySelector('input[name="s_12_5_rate_a"]').value;-->
+<!--        var s_12_5_rate_b = document.querySelector('input[name="s_12_5_rate_b"]').value;-->
+<!--        var s_1_rate_a = document.querySelector('input[name="s_1_rate_a"]').value;-->
+<!--        var s_1_rate_b = document.querySelector('input[name="s_1_rate_b"]').value;-->
+<!--        var s_1schedule_v_a = document.querySelector('input[name="s_1schedule_v_a"]').value;-->
+<!--        var s_1schedule_v_b = document.querySelector('input[name="s_1schedule_v_b"]').value;-->
+<!--        var sales_due_rate = document.querySelector('input[name="sales_due_rate"]').value;-->
+<!--        var s_2schedule_v_a = document.querySelector('input[name="s_2schedule_v_a"]').value;-->
+<!--        var s_2schedule_v_b = document.querySelector('input[name="s_2schedule_v_b"]').value;-->
+<!--        var tot_amt_out_tax = document.querySelector('input[name="tot_amt_out_tax"]').value;-->
+
+<!--        // Populate preview form with data from form 2-->
+<!--        document.getElementById('s_exempt_rate_a').innerText = s_exempt_rate_a;-->
+<!--        document.getElementById('s_exempt_rate_b').innerText = s_exempt_rate_b;-->
+<!--        document.getElementById('s_0_rate_a').innerText = s_0_rate_a;-->
+<!--        document.getElementById('s_0_rate_b').innerText = s_0_rate_b;-->
+<!--        document.getElementById('s_0_rate_cst_a').innerText = s_0_rate_cst_a;-->
+<!--        document.getElementById('s_0_rate_cst_b').innerText = s_0_rate_cst_b;-->
+<!--        document.getElementById('rate_s_8_a').innerText = rate_s_8_a;-->
+<!--        document.getElementById('s_tax_due_a').innerText = s_tax_due_a;-->
+<!--        document.getElementById('s_tax_due_b').innerText = s_tax_due_b;-->
+<!--        document.getElementById('s_4_rate_a').innerText = s_4_rate_a;-->
+<!--        document.getElementById('s_4_rate_b').innerText = s_4_rate_b;-->
+<!--        document.getElementById('s_12_5_rate_a').innerText = s_12_5_rate_a;-->
+<!--        document.getElementById('s_12_5_rate_b').innerText = s_12_5_rate_b;-->
+<!--        document.getElementById('s_1_rate_a').innerText = s_1_rate_a;-->
+<!--        document.getElementById('s_1_rate_b').innerText = s_1_rate_b;-->
+<!--        document.getElementById('s_1schedule_v_a').innerText = s_1schedule_v_a;-->
+<!--        document.getElementById('s_1schedule_v_b').innerText = s_1schedule_v_b;-->
+<!--        document.getElementById('sales_due_rate').value = sales_due_rate;-->
+<!--        document.getElementById('s_2schedule_v_a').innerText = s_2schedule_v_a;-->
+<!--        document.getElementById('s_2schedule_v_b').innerText = s_2schedule_v_b;-->
+<!--        document.getElementById('tot_amt_out_tax').innerText = tot_amt_out_tax;-->
+
+<!--        // Form 3 data-->
+<!--        var output_tax = document.querySelector('input[name="output_tax"]').value;-->
+<!--        var sales_cancelled = document.querySelector('input[name="sales_cancelled"]').value;-->
+<!--        var returns_of_sold_goods = document.querySelector('input[name="returns_of_sold_goods"]').value;-->
+<!--        var oth_adjustment_add_3 = document.querySelector('input[name="oth_adjustment_add_3"]').value;-->
+<!--        var oth_adjustment_sub_3 = document.querySelector('input[name="oth_adjustment_sub_3"]').value;-->
+<!--        var tot_adjustment = document.querySelector('input[name="tot_adjustment"]').value;-->
+<!--        var total_output_tax = document.querySelector('input[name="total_output_tax"]').value;-->
+
+<!--        // Populate preview form with data from form 3-->
+<!--        document.getElementById('preview_output_tax').innerText = output_tax;-->
+<!--        document.getElementById('preview_sales_cancelled').innerText = sales_cancelled;-->
+<!--        document.getElementById('preview_returns_of_sold_goods').innerText = returns_of_sold_goods;-->
+<!--        document.getElementById('preview_oth_adjustment_add_3').innerText = oth_adjustment_add_3;-->
+<!--        document.getElementById('preview_oth_adjustment_sub_3').innerText = oth_adjustment_sub_3;-->
+<!--        document.getElementById('preview_tot_adjustment').innerText = tot_adjustment;-->
+<!--        document.getElementById('preview_total_output_tax').innerText = total_output_tax;-->
+
+<!--        // Form 4 data-->
+<!--        var stock_on_transition = document.querySelector('input[name="stock_on_transition"]').value;-->
+<!--        var itc_carried_forward = document.querySelector('input[name="itc_carried_forward"]').value;-->
+<!--        var itc_capital_goods = document.querySelector('input[name="itc_capital_goods"]').value;-->
+<!--        var itc_debit_note = document.querySelector('input[name="itc_debit_note"]').value;-->
+<!--        var oth_adjustment_add_4 = document.querySelector('input[name="oth_adjustment_add_4"]').value;-->
+<!--        var total_itc = document.querySelector('input[name="total_itc"]').value;-->
+<!--        var itc_credit_note = document.querySelector('input[name="itc_credit_note"]').value;-->
+<!--        var tax_credit_reversed = document.querySelector('input[name="tax_credit_reversed"]').value;-->
+<!--        var oth_adjustment_sub_4 = document.querySelector('input[name="oth_adjustment_sub_4"]').value;-->
+<!--        var tot_itc_deduct = document.querySelector('input[name="tot_itc_deduct"]').value;-->
+<!--        var tot_net_itc = document.querySelector('input[name="tot_net_itc"]').value;-->
+<!--        var tax_payable = document.querySelector('input[name="tax_payable"]').value;-->
+<!--        var interest_penalty_dues = document.querySelector('input[name="interest_penalty_dues"]').value;-->
+<!--        var total_dues = document.querySelector('input[name="total_dues"]').value;-->
+<!--        var tax_deducted_at_source = document.querySelector('input[name="tax_deducted_at_source"]').value;-->
+<!--        var balance_excess = document.querySelector('input[name="balance_excess"]').value;-->
+<!--        var tax_paid = document.querySelector('input[name="tax_paid"]').value;-->
+<!--        var balance_due = document.querySelector('input[name="balance_due"]').value;-->
+<!--        var cst_adjust_liability = document.querySelector('input[name="cst_adjust_liability"]').value;-->
+<!--        var refund = document.querySelector('input[name="refund"]').value;-->
+<!--        var balance_carried_forward = document.querySelector('input[name="balance_carried_forward"]').value;-->
+<!--        var advance_total = document.querySelector('input[name="advance_total"]').value;-->
+
+<!--        // Populate preview form with data from form 4-->
+<!--        document.getElementById('preview_stock_on_transition').innerText = stock_on_transition;-->
+<!--        document.getElementById('preview_itc_carried_forward').innerText = itc_carried_forward;-->
+<!--        document.getElementById('preview_itc_capital_goods').innerText = itc_capital_goods;-->
+<!--        document.getElementById('preview_itc_debit_note').innerText = itc_debit_note;-->
+<!--        document.getElementById('preview_oth_adjustment_add_4').innerText = oth_adjustment_add_4;-->
+<!--        document.getElementById('preview_total_itc').innerText = total_itc;-->
+<!--        document.getElementById('preview_itc_credit_note').innerText = itc_credit_note;-->
+<!--        document.getElementById('preview_tax_credit_reversed').innerText = tax_credit_reversed;-->
+<!--        document.getElementById('preview_oth_adjustment_sub_4').innerText = oth_adjustment_sub_4;-->
+<!--        document.getElementById('preview_tot_itc_deduct').innerText = tot_itc_deduct;-->
+<!--        document.getElementById('preview_tot_net_itc').innerText = tot_net_itc;-->
+<!--        document.getElementById('preview_tax_payable').innerText = tax_payable;-->
+<!--        document.getElementById('preview_interest_penalty_dues').innerText = interest_penalty_dues;-->
+<!--        document.getElementById('preview_total_dues').innerText = total_dues;-->
+<!--        document.getElementById('preview_tax_deducted_at_source').innerText = tax_deducted_at_source;-->
+<!--        document.getElementById('preview_balance_excess').innerText = balance_excess;-->
+<!--        document.getElementById('preview_tax_paid').innerText = tax_paid;-->
+<!--        document.getElementById('preview_balance_due').innerText = balance_due;-->
+<!--        document.getElementById('preview_cst_adjust_liability').innerText = cst_adjust_liability;-->
+<!--        document.getElementById('preview_refund').innerText = refund;-->
+<!--        document.getElementById('preview_balance_carried_forward').innerText = balance_carried_forward;-->
+<!--        document.getElementById('preview_advance_total').innerText = advance_total;-->
+<!--    }-->
+
+<!--    // Call the populatePreviewForms function when the page loads-->
+<!--    window.onload = populatePreviewForms;-->
+
+
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->

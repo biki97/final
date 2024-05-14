@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filed Returns</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Optional custom styles */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2 class="mb-4">Filed Returns</h2>
+
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+        <tr>
+            <th>Sl No</th>
+            <th>Tin Number</th>
+            <th>Return No</th>
+            <th>Period From (Month)</th>
+            <th>Period From (Year)</th>
+            <th>Period To (Month)</th>
+            <th>Period To (Year)</th>
+            <th>Details</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Iterate over filed returns data and populate table rows -->
+        <tr th:each="filedReturn, rowStat : ${filedReturns}">
+            <td th:text="${rowStat.index + 1}"></td>
+            <td th:text="${filedReturn.tinNumber}"></td>
+            <td th:text="${filedReturn.returnNo}"></td>
+            <td th:text="${filedReturn.periodFromMonth}"></td>
+            <td th:text="${filedReturn.periodFromYear}"></td>
+            <td th:text="${filedReturn.periodToMonth}"></td>
+            <td th:text="${filedReturn.periodToYear}"></td>
+            <!-- Link to view details of the filed return -->
+            <td><a class="btn btn-primary btn-sm" th:href="@{'/filed-return-details/' + ${filedReturn.id}}">View Details</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Bootstrap JS (optional) -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

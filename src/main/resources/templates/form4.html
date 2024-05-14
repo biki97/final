@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchases in the Quarter</title>
+    <!-- Include Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Optional: Add custom styles for your welcome page -->
+    <style>
+        /* Add custom styles here */l
+        body {
+            background-color: #f8f9fa;
+        }
+        .table th {
+            color: #004578; /* Red color for table headings */
+            text-transform: uppercase; /* Convert text to uppercase */
+        }
+        .card {
+            width: 100%; /* Adjust width of the card */
+            margin: 20px auto; /* Center the card and add some margin */
+        }
+        .card-body {
+            padding: 20px; /* Increase padding inside the card body */
+        }
+        .btn-next {
+            background-color: #007bff; /* Change button color */
+            border-color: #007bff;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="fragments/navbar :: header(currentForm='form4')"></div> <!-- Pass the currentForm variable -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 offset-md-1">
+            <form id="form4" action="/total-input-tax-online/submit" method="post">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                <div class="card">
+                    <div class="card-header bg-secondary text-white">
+                        Enter the Deatails
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <tbody>
+                                <tr>
+                                    <td><label>23.Input Tax credit on Purchases:</label></td>
+                                    <td></td>
+                                    <td><input type="text" name="stock_on_transition" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                                </tr>
+                                </tbody>
+                                <tbody>
+                                <tr>
+                                    <td><label>24.Add/Less: Adjustment to input Tax if any:-</label></td>
+                                    <td></td>
+                                    <td></td>
+                                <tr>
+                                    <td><label><p>javalangNumberFormatException For input string "0.00" &nbsp;&nbsp;(+)Input Tax Credit Carried Forward from previous tax period</p></label></td>
+                                    <td></td>
+                                    <td><input type="text" name="itc_carried_forward" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                                </tr>
+                                <!--            might delete later-->
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td><input type="text" name="itc_capital_goods" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                                </tr>
+                                <!--            to this-->
+                                <tr>
+                                    <td><label><p>(+)Input Tax Credit on capital goods:</p></label></td>
+                                    <td></td>
+                                    <td><input type="text" name="itc_debit_note" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                                </tr>
+                                <tr>
+                                    <td><label><p>(+)Increase on input Tax Credit due to debit note:</p></label></td>
+                                    <td></td>
+                                    <td><input type="text" name="oth_adjustment_add" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                                </tr>
+                                <tr>
+                                    <td><label><p>(+)Other Adjustments if any (specify)</p></label></td>
+                                    <td></td>
+                                    <td><input type="text" name="total_itc" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                                </tr>
+                                <tr>
+                                    <td><label>Total Tax Credit:</label></td>
+                                    <td></td>
+                                    <td><input type="text" name="itc_credit_note" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                                </tr>
+                                <tr>
+                                    <td><label><p>(-)Decreases in input tax credit due to credit note:</p></label></td>
+                                    <td></td>
+                                    <td><input type="text" name="tax_credit_reversed" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                                </tr>
+                                <tr>
+                                    <td><label><p>(-)Tax credit reversed/disallowed for the use of goods for purpose other than for which credit is allowed</p></label></td>
+                                    <td></td>
+                                    <td><input type="text" name="oth_adjustment_sub" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                                </tr>
+                                <tr>
+                                    <td><label><p>(-)other adjustments(if any):</p></label></td>
+                                    <td></td>
+                                    <td><input type="text" name="tot_itc_deduct" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                                </tr>
+                                </tbody>
+                                <tbody>
+                                <tr>
+                                    <td><label>25.Total Net Input Tax Credit:</label></td>
+                                    <td></td>
+                                    <td><input type="text" name="tot_net_itc" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card-footer text-right">
+                        <button type="button" class="btn btn-secondary mr-2" onclick="goBack2()">Previous</button>
+                        <button type="button" class="btn btn-secondary mr-2" onclick="goBack()">Back</button>
+                        <!-- Next button -->
+                        <button type="button" class="btn btn-next" onclick="nextPage()">Save & Next</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Include Bootstrap JS (optional) -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    function goBack() {
+        window.history.back();
+    }
+    function goBack2() {
+        window.location.href = 'form2.html';
+    }
+    function nextPage() {
+        // Check if all required fields are filled
+        var inputs = document.querySelectorAll('input[required]');
+        var allFilled = true;
+        inputs.forEach(function (input) {
+            if (input.value.trim() === '') {
+                allFilled = false;
+            }
+        });
+
+        // If any required field is empty, show an alert message
+        if (!allFilled) {
+            alert('Please fill out all required fields before proceeding.');
+        } else {
+            // Proceed to the next page if all fields are filled
+            window.location.href = 'form5.html';
+        }
+    }
+</script>
+</body>
+</html>
+
