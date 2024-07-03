@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Form</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+
+        h2 {
+            color: #007bff;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        h4 {
+            color: #343a40;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<!-- Form for editing -->
+<div class="container mt-5">
+    <h2>Edit Form</h2>
+    <form action="/submitEditedForm" method="post">
+        <!-- Purchase Details -->
+        <h4>Purchase Details</h4>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>ITC Carried Forward:</label>
+                    <input type="text" class="form-control" name="itcCarriedForward" th:if="${purchaseDetails.itcCarriedForward}">
+                </div>
+                <div class="form-group">
+                    <label>ITC Capital Goods:</label>
+                    <input type="text" class="form-control" name="itcCapitalGoods" th:if="${purchaseDetails.itcCapitalGoods}">
+                </div>
+                <div class="form-group">
+                    <label>ITC Debit Note:</label>
+                    <input type="text" class="form-control" name="itcDebitNote" th:if="${purchaseDetails.itcDebitNote}">
+                </div>
+                <div class="form-group">
+                    <label>Other Adjustment Add:</label>
+                    <input type="text" class="form-control" name="othAdjustmentAdd" th:if="${purchaseDetails.othAdjustmentAdd}">
+                </div>
+                <div class="form-group">
+                    <label >Total ITC:</label>
+                    <input type="text" class="form-control" name="totalItc" th:if="${purchaseDetails.totalItc}">
+                </div>
+                <div class="form-group">
+                    <label >ITC Credit Note:</label>
+                    <input type="text" class="form-control" name="itcCreditNote" th:if="${purchaseDetails.itcCreditNote}">
+                </div>
+                <div class="form-group">
+                    <label >Tax Credit Reversed:</label>
+                    <input type="text" class="form-control" name="taxCreditReversed" th:if="${purchaseDetails.taxCreditReversed}">
+                </div>
+                <div class="form-group">
+                    <label >Other Adjustment Subtract:</label>
+                    <input type="text" class="form-control" name="othAdjustmentSub" th:if="${purchaseDetails.othAdjustmentSub}">
+                </div>
+                <div class="form-group">
+                    <label>Total ITC Deduct:</label>
+                    <input type="text" class="form-control" name="totItcDeduct" th:if="${purchaseDetails.totItcDeduct}">
+                </div>
+                <div class="form-group">
+                    <label>Total Net ITC:</label>
+                    <input type="text" class="form-control" name="totNetItc" th:if="${purchaseDetails.totNetItc}">
+                </div>
+                <div class="form-group">
+                    <label>Tax Payable:</label>
+                    <input type="text" class="form-control" name="taxPayable" th:if="${purchaseDetails.taxPayable}">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Interest Penalty Dues:</label>
+                    <input type="text" class="form-control" name="interestPenaltyDues" th:if="${purchaseDetails.interestPenaltyDues}">
+                </div>
+                <div class="form-group">
+                    <label>Total Dues:</label>
+                    <input type="text" class="form-control" name="totalDues" th:if="${purchaseDetails.totalDues}">
+                </div>
+                <div class="form-group">
+                    <label>Tax Deducted At Source:</label>
+                    <input type="text" class="form-control" name="taxDeductedAtSource" th:if="${purchaseDetails.taxDeductedAtSource}">
+                </div>
+                <div class="form-group">
+                    <label>Balance Excess:</label>
+                    <input type="text" class="form-control" name="balanceExcess" th:if="${purchaseDetails.balanceExcess}">
+                </div>
+                <div class="form-group">
+                    <label>Tax Paid:</label>
+                    <input type="text" class="form-control" name="taxPaid" th:if="${purchaseDetails.taxPaid}">
+                </div>
+                <div class="form-group">
+                    <label>Balance Due:</label>
+                    <input type="text" class="form-control" name="balanceDue" th:if="${purchaseDetails.balanceDue}">
+                </div>
+                <div class="form-group">
+                    <label>CST Adjust Liability:</label>
+                    <input type="text" class="form-control" name="cstAdjustLiability" th:if="${purchaseDetails.cstAdjustLiability}">
+                </div>
+                <div class="form-group">
+                    <label>Refund:</label>
+                    <input type="text" class="form-control" name="refund" th:if="${purchaseDetails.refund}">
+                </div>
+                <div class="form-group">
+                    <label>Balance Carried Forward:</label>
+                    <input type="text" class="form-control" name="balanceCarriedForward" th:if="${purchaseDetails.balanceCarriedForward}">
+                </div>
+                <div class="form-group">
+                    <label>Total No. of Returns Submitted By Dealer:</label>
+                    <input type="text" class="form-control" name="totalNoOfReturnsSubmittedByDealer" th:if="${purchaseDetails.totalNoOfReturnsSubmittedByDealer}">
+                </div>
+            </div>
+        </div>
+
+        <!-- Purchase Quarter Details -->
+        <h4>Purchase Quarter Details</h4>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Exempt Rate A:</label>
+                    <input type="text" class="form-control" name="exemptRateA" th:if="${purchaseQuarterDetails.exemptRateA}">
+                </div>
+                <div class="form-group">
+                    <label>Exempt Rate B:</label>
+                    <input type="text" class="form-control" name="exemptRateB" th:if="${purchaseQuarterDetails.exemptRateB}">
+                </div>
+                <div class="form-group">
+                    <label>Rate 4A:</label>
+                    <input type="text" class="form-control" name="rate4A" th:if="${purchaseQuarterDetails.rate4A}">
+                </div>
+                <div class="form-group">
+                    <label>Rate 4B:</label>
+                    <input type="text" class="form-control" name="rate4B" th:if="${purchaseQuarterDetails.rate4B}">
+                </div>
+                <div class="form-group">
+                    <label>Rate 12.5A:</label>
+                    <input type="text" class="form-control" name="rate125A" th:if="${purchaseQuarterDetails.rate125A}">
+                </div>
+                <div class="form-group">
+                    <label>Rate 12.5B:</label>
+                    <input type="text" class="form-control" name="rate125B" th:if="${purchaseQuarterDetails.rate125B}">
+                </div>
+                <div class="form-group">
+                    <label>Rate 1A:</label>
+                    <input type="text" class="form-control" name="rate1A" th:if="${purchaseQuarterDetails.rate1A}">
+                </div>
+                <div class="form-group">
+                    <label>Rate 1B:</label>
+                    <input type="text" class="form-control" name="rate1B" th:if="${purchaseQuarterDetails.rate1B}">
+                </div>
+                <div class="form-group">
+                    <label>Rate 8A:</label>
+                    <input type="text" class="form-control" name="rate8A" th:if="${purchaseQuarterDetails.rate8A}">
+                </div>
+                <div class="form-group">
+                    <label>Rate 8B:</label>
+                    <input type="text" class="form-control" name="rate8B" th:if="${purchaseQuarterDetails.rate8B}">
+                </div>
+                <div class="form-group">
+                    <label>Rate 9A:</label>
+                    <input type="text" class="form-control" name="rate9A" th:if="${purchaseQuarterDetails.rate9A}">
+                </div>
+                <div class="form-group">
+                    <label>Rate 9B:</label>
+                    <input type="text" class="form-control" name="rate9B" th:if="${purchaseQuarterDetails.rate9B}">
+                </div>
+                <div class="form-group">
+                    <label>Total Amount of Input Tax:</label>
+                    <input type="text" class="form-control" name="totalAmountOfInputTax" th:if="${purchaseQuarterDetails.totalAmountOfInputTax}">
+                </div>
+            </div>
+        </div>
+
+        <!-- Sales Entity -->
+        <h4>Sales Entity</h4>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Rate 0A:</label>
+                    <input type="text" class="form-control" name="s_0_rate_a" th:if="${salesEntity.s_0_rate_a}">
+                </div>
+                <div class="form-group">
+                    <label>Rate 0B:</label>
+                    <input type="text" class="form-control" name="s_0_rate_b" th:if="${salesEntity.s_0_rate_b}">
+                </div>
+                <div class="form-group">
+                    <label>Rate 0CST A:</label>
+                    <input type="text" class="form-control" name="s_0_rate_cst_a" th:if="${salesEntity.s_0_rate_cst_a}">
+                </div>
+                <div class="form-group">
+                    <label>Rate 0CST B:</label>
+                    <input type="text" class="form-control" name="s_0_rate_cst_b" th:if="${salesEntity.s_0_rate_cst_b}">
+                </div>
+                <div class="form-group">
+                    <label>Rate 8A:</label>
+                    <input type="text" class="form-control" name="rate_s_8_a" th:if="${salesEntity.rate_s_8_a}">
+                </div>
+                <div class="form-group">
+                    <label>Tax Due A:</label>
+                    <input type="text" class="form-control" name="s_tax_due_a" th:if="${salesEntity.s_tax_due_a}">
+                </div>
+                <div class="form-group">
+                    <label>Tax Due B:</label>
+                    <input type="text" class="form-control" name="s_tax_due_b" th:if="${salesEntity.s_tax_due_b}">
+                </div>
+                <div class="form-group">
+                    <label>Rate 9B:</label>
+                    <input type="text" class="form-control" name="rate_s_9_b" th:if="${salesEntity.rate_s_9_b}">
+                </div>
+                <div class="form-group">
+                    <label>Rate 4A:</label>
+                    <input type="text" class="form-control" name="s_4_rate_a" th:if="${salesEntity.s_4_rate_a}">
+                </div>
+                <div class="form-group">
+                    <label>Rate 4B:</label>
+                    <input type="text" class="form-control" name="s_4_rate_b" th:if="${salesEntity.s_4_rate_b}">
+                </div>
+                <div class="form-group">
+                    <label>Rate 4 PR:</label>
+                    <input type="text" class="form-control" name="p_4_rate_pr" th:if="${salesEntity.p_4_rate_pr}">
+                </div>
+                <div class="form-group">
+                    <label>Rate 12.5A:</label>
+                    <input type="text" class="form-control" name="s_12_5_rate_a" th:if="${salesEntity.s_12_5_rate_a}">
+                </div>
+                <div class="form-group">
+                    <label>Rate 12.5B:</label>
+                    <input type="text" class="form-control" name="s_12_5_rate_b" th:if="${salesEntity.s_12_5_rate_b}">
+                </div>
+                <div class="form-group">
+                    <label>Rate 12.5 PR:</label>
+                    <input type="text" class="form-control" name="p_12_5_rate" th:if="${salesEntity.p_12_5_rate}">
+                </div>
+                <div class="form-group">
+                    <label>Rate 1A:</label>
+                    <input type="text" class="form-control" name="s_1_rate_a" th:if="${salesEntity.s_1_rate_a}">
+                </div>
+                <div class="form-group">
+                    <label>Rate 1B:</label>
+                    <input type="text" class="form-control" name="s_1_rate_b" th:if="${salesEntity.s_1_rate_b}">
+                </div>
+                <div class="form-group">
+                    <label>Rate 1 PR:</label>
+                    <input type="text" class="form-control" name="p_1_rate_pr" th:if="${salesEntity.p_1_rate_pr}">
+                </div>
+                <div class="form-group">
+                    <label>Schedule V A:</label>
+                    <input type="text" class="form-control" name="s_1schedule_v_a" th:if="${salesEntity.s_1schedule_v_a}">
+                </div>
+                <div class="form-group">
+                    <label>Schedule V B:</label>
+                    <input type="text" class="form-control" name="s_1schedule_v_b" th:if="${salesEntity.s_1schedule_v_b}">
+                </div>
+                <div class="form-group">
+                    <label>Sales Due Rate:</label>
+                    <input type="text" class="form-control" name="sales_due_rate" th:if="${salesEntity.sales_due_rate}">
+                </div>
+                <div class="form-group">
+                    <label>Schedule 2V A:</label>
+                    <input type="text" class="form-control" name="s_2schedule_v_a" th:if="${salesEntity.s_2schedule_v_a}">
+                </div>
+                <div class="form-group">
+                    <label>Schedule 2V B:</label>
+                    <input type="text" class="form-control" name="s_2schedule_v_b" th:if="${salesEntity.s_2schedule_v_b}">
+                </div>
+                <div class="form-group">
+                    <label>Total Amount Out Tax:</label>
+                    <input type="text" class="form-control" name="tot_amt_out_tax" th:if="${salesEntity.tot_amt_out_tax}">
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Total Output Tax Online -->
+        <h4>Total Output Tax Online</h4>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label >Sales Cancelled:</label>
+                    <input type="text" class="form-control" name="sales_cancelled" th:if="${totalOutputTaxOnline.sales_cancelled}">
+                </div>
+                <div class="form-group">
+                    <label >Returns of Sold Goods:</label>
+                    <input type="text" class="form-control" name="returns_of_sold_goods" th:if="${totalOutputTaxOnline.returns_of_sold_goods}">
+                </div>
+                <div class="form-group">
+                    <label >Other Adjustment Add:</label>
+                    <input type="text" class="form-control" name="oth_adjustment_add" th:if="${totalOutputTaxOnline.oth_adjustment_add}">
+                </div>
+                <div class="form-group">
+                    <label >Other Adjustment Sub:</label>
+                    <input type="text" class="form-control" name="oth_adjustment_sub" th:if="${totalOutputTaxOnline.oth_adjustment_sub}">
+                </div>
+                <div class="form-group">
+                    <label >Total Adjustment:</label>
+                    <input type="text" class="form-control" name="tot_adjustment" th:if="${totalOutputTaxOnline.tot_adjustment}">
+                </div>
+                <div class="form-group">
+                    <label >Total Output Tax:</label>
+                    <input type="text" class="form-control" name="total_output_tax" th:if="${totalOutputTaxOnline.total_output_tax}">
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Submit Button -->
+        <div class="form-group mt-3">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+

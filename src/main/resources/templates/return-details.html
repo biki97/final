@@ -1,0 +1,198 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Return Details</title>-->
+<!--    &lt;!&ndash; Bootstrap CSS &ndash;&gt;-->
+<!--    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">-->
+<!--    <style>-->
+<!--        body {-->
+<!--            font-family: Arial, sans-serif;-->
+<!--        }-->
+<!--        .container {-->
+<!--            margin-top: 50px;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="container">-->
+<!--    <h2 class="mb-4">Return Details</h2>-->
+
+<!--    <h3>Purchase Details</h3>-->
+<!--    <table class="table table-bordered">-->
+<!--        <thead class="thead-dark">-->
+<!--        <tr>-->
+<!--            <th>Detail ID</th>-->
+<!--            <th>Detail Description</th>-->
+<!--            &lt;!&ndash; Add other relevant columns &ndash;&gt;-->
+<!--        </tr>-->
+<!--        </thead>-->
+<!--        <tbody>-->
+<!--        <tr th:each="detail : ${purchaseDetails}">-->
+<!--            <td th:text="${detail.detailId}"></td>-->
+<!--            <td th:text="${detail.detailDescription}"></td>-->
+<!--            &lt;!&ndash; Add other relevant columns &ndash;&gt;-->
+<!--        </tr>-->
+<!--        </tbody>-->
+<!--    </table>-->
+
+<!--    <h3>Input Tax Credit Details</h3>-->
+<!--    <table class="table table-bordered">-->
+<!--        <thead class="thead-dark">-->
+<!--        <tr>-->
+<!--            <th>Credit ID</th>-->
+<!--            <th>Credit Amount</th>-->
+<!--            &lt;!&ndash; Add other relevant columns &ndash;&gt;-->
+<!--        </tr>-->
+<!--        </thead>-->
+<!--        <tbody>-->
+<!--        <tr th:each="credit : ${inputTaxCredits}">-->
+<!--            <td th:text="${credit.creditId}"></td>-->
+<!--            <td th:text="${credit.creditAmount}"></td>-->
+<!--            &lt;!&ndash; Add other relevant columns &ndash;&gt;-->
+<!--        </tr>-->
+<!--        </tbody>-->
+<!--    </table>-->
+
+<!--    <h3>Sales Details</h3>-->
+<!--    <table class="table table-bordered">-->
+<!--        <thead class="thead-dark">-->
+<!--        <tr>-->
+<!--            <th>Sale ID</th>-->
+<!--            <th>Sale Description</th>-->
+<!--            &lt;!&ndash; Add other relevant columns &ndash;&gt;-->
+<!--        </tr>-->
+<!--        </thead>-->
+<!--        <tbody>-->
+<!--        <tr th:each="sale : ${salesDetails}">-->
+<!--            <td th:text="${sale.saleId}"></td>-->
+<!--            <td th:text="${sale.saleDescription}"></td>-->
+<!--            &lt;!&ndash; Add other relevant columns &ndash;&gt;-->
+<!--        </tr>-->
+<!--        </tbody>-->
+<!--    </table>-->
+
+<!--    <h3>Output Tax Details</h3>-->
+<!--    <table class="table table-bordered">-->
+<!--        <thead class="thead-dark">-->
+<!--        <tr>-->
+<!--            <th>Tax ID</th>-->
+<!--            <th>Tax Amount</th>-->
+<!--            &lt;!&ndash; Add other relevant columns &ndash;&gt;-->
+<!--        </tr>-->
+<!--        </thead>-->
+<!--        <tbody>-->
+<!--        <tr th:each="tax : ${outputTaxes}">-->
+<!--            <td th:text="${tax.taxId}"></td>-->
+<!--            <td th:text="${tax.taxAmount}"></td>-->
+<!--            &lt;!&ndash; Add other relevant columns &ndash;&gt;-->
+<!--        </tr>-->
+<!--        </tbody>-->
+<!--    </table>-->
+
+<!--    <a href="/dashboard" class="btn btn-primary">Back to Dashboard</a>-->
+<!--</div>-->
+<!--&lt;!&ndash; Bootstrap JS (optional) &ndash;&gt;-->
+<!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>-->
+<!--</body>-->
+<!--</html>-->
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Return Details</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2 class="mb-4">Return Details</h2>
+    <h3>Purchase Details</h3>
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+        <tr>
+            <th>Detail ID</th>
+            <th>Detail Description</th>
+            <!-- Add other relevant columns -->
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="detail : ${purchaseDetails}">
+            <td th:text="${detail.detailId}"></td>
+            <td th:text="${detail.detailDescription}"></td>
+            <!-- Add other relevant columns -->
+        </tr>
+        </tbody>
+    </table>
+
+    <h3>Input Tax Credit Details</h3>
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+        <tr>
+            <th>Credit ID</th>
+            <th>Credit Amount</th>
+            <!-- Add other relevant columns -->
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="credit : ${inputTaxCredits}">
+            <td th:text="${credit.creditId}"></td>
+            <td th:text="${credit.creditAmount}"></td>
+            <!-- Add other relevant columns -->
+        </tr>
+        </tbody>
+    </table>
+
+    <h3>Sales Details</h3>
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+        <tr>
+            <th>Sale ID</th>
+            <th>Sale Description</th>
+            <!-- Add other relevant columns -->
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="sale : ${salesDetails}">
+            <td th:text="${sale.saleId}"></td>
+            <td th:text="${sale.saleDescription}"></td>
+            <!-- Add other relevant columns -->
+        </tr>
+        </tbody>
+    </table>
+
+    <h3>Output Tax Details</h3>
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+        <tr>
+            <th>Tax ID</th>
+            <th>Tax Amount</th>
+            <!-- Add other relevant columns -->
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="tax : ${outputTaxes}">
+            <td th:text="${tax.taxId}"></td>
+            <td th:text="${tax.taxAmount}"></td>
+            <!-- Add other relevant columns -->
+        </tr>
+        </tbody>
+    </table>
+
+    <a href="/dashboard" class="btn btn-primary">Back to Dashboard</a>
+</div>
+<!-- Bootstrap JS (optional) -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
